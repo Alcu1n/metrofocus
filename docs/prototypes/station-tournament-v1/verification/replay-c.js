@@ -1,0 +1,49 @@
+async (page) => {
+ const base='http://127.0.0.1:8768/selected-c.html', out='output/playwright/metrofocus-tournament';
+ const report={screens:[],interactions:[],errors:[]};page.on('pageerror',e=>report.errors.push(e.message));
+ const check=(v,msg)=>{if(!v)throw new Error(msg)};
+ for(const width of [402,375])for(const lang of ['zh','en'])for(const screen of ['station','wallet']){
+  const height=width===402?874:667;await page.setViewportSize({width,height});
+  await page.goto(`${base}?page=${screen}&capture=1&lang=${lang}${width===375?'&long=1':''}`);
+  const phone=page.locator(`.phone[data-page="${screen}"]`);
+  const m=await phone.evaluate(p=>({overflow:p.querySelector('.screen').scrollWidth>p.querySelector('.screen').clientWidth,buttons:[...p.querySelectorAll('button')].filter(b=>b.getBoundingClientRect().height<44).length,tabBottom:p.querySelector('.tabbar').getBoundingClientRect().bottom}));
+  check(!m.overflow&&!m.buttons&&m.tabBottom<=height,`Layout failure ${screen}/${lang}/${width}`);
+  await page.screenshot({path:`${out}/c-${screen}-${lang}-${width}.png`});
+  if(screen==='wallet'){
+   check(await phone.locator('[data-ticket]').count()===3,'Fixture count');
+   await phone.locator('.screen').evaluate(el=>el.scrollTop=el.scrollHeight);
+   check(await phone.locator('[data-ticket="2"]').evaluate(row=>{const p=row.closest('.screen').getBoundingClientRect(),r=row.getBoundingClientRect();return r.top>=p.top&&r.bottom<=p.bottom}),'Last ticket is not reachable');
+   await phone.locator('.screen').evaluate(el=>el.scrollTop=0);
+   await phone.locator('[data-ticket="0"]').click();
+   check(await phone.locator('.sheet').isVisible(),'Ticket did not open');
+   if(width===402&&lang==='zh')await page.screenshot({path:`${out}/c-ticket-detail.png`});
+   await phone.locator('[data-punch="0"]').click();
+   check(await phone.locator('.punch-hole').count()===1,'Punch mark missing');
+   check((await phone.locator('.sheet').innerText()).includes('VALIDATED'),'Status missing');
+   if(width===402&&lang==='zh')await page.screenshot({path:`${out}/c-ticket-punched.png`});
+   await page.keyboard.press('Escape');
+   check((await phone.locator('[data-ticket="0"]').getAttribute('aria-label')).includes(lang==='zh'?'已验票':'Validated'),'List status not updated');
+   check(await phone.locator('[data-ticket="0"]').evaluate(el=>document.activeElement===el),'Focus not restored');
+  }
+  report.screens.push({screen,lang,width,height,...m});
+ }
+ await page.setViewportSize({width:402,height:874});
+ await page.goto(`${base}?page=wallet&capture=1&fixture=empty`);
+ check(await page.locator('.wallet-screen [data-ticket]').count()===0,'Empty state has tickets');
+ await page.screenshot({path:`${out}/c-wallet-empty.png`});
+ await page.locator('.empty-wallet [data-page="station"]').click();
+ check(await page.locator('.entry.focused .ticket-form').isVisible(),'Empty action did not navigate');
+ const phone=page.locator('.phone[data-page="station"]');
+ await phone.locator('[data-task]').fill('');await phone.locator('[data-action="depart"]').click();
+ check(await phone.locator('.task-error.show').count()===1,'Empty task accepted');
+ await phone.locator('[data-task]').fill('整理会议记录');await phone.locator('[data-line="3"]').click();await phone.locator('[data-service="1"]').click();
+ check((await phone.locator('[data-summary]').innerText()).includes('100'),'Station total');
+ await phone.locator('[data-action="depart"]').click();check((await phone.locator('.sheet').innerText()).includes('整理会议记录'),'Preview task missing');await page.keyboard.press('Escape');
+ await phone.locator('[data-action="tickets"]').click();check(await page.locator('.entry.focused .wallet-screen').isVisible(),'Ticket tab navigation failed');
+ report.interactions.push('Both languages and sizes: all three rows reachable, ticket opens, punch updates detail and list, Escape restores row focus');
+ report.interactions.push('Empty wallet -> station; empty task rejected; line and service selection; 100-minute total; departure preview; ticket tab');
+ await page.setViewportSize({width:1140,height:1200});await page.goto(base);
+ check(report.errors.length===0,report.errors.join('\n'));
+ await page.evaluate(r=>window.__cVerification=r,report);
+ await page.screenshot({path:`${out}/c-migration-final.png`,fullPage:true});
+}

@@ -1,0 +1,227 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - generic [ref=f3e3]: METROFOCUS / DESIGN TOURNAMENT / V1
+    - heading "三种发车方式，同一程专注。" [level=1] [ref=f3e4]
+    - paragraph [ref=f3e5]: 先比较车站首页和它的核心组件。三案保留夜行地铁、四条任务线路与既有班次规则，只改变信息组织和视觉表达。这是浏览器视觉原型，尚未应用到 SwiftUI。
+    - generic [ref=f3e6]:
+      - button "三案并排" [pressed] [ref=f3e7] [cursor=pointer]
+      - button "单案细看" [ref=f3e8] [cursor=pointer]
+      - combobox "界面语言" [ref=f3e10]:
+        - option "简体中文" [selected]
+        - option "English"
+      - button "长任务示例" [ref=f3e11] [cursor=pointer]
+      - button "空任务状态" [ref=f3e12] [cursor=pointer]
+      - button "重置内容" [ref=f3e13] [cursor=pointer]
+      - button "视觉参考" [ref=f3e14] [cursor=pointer]
+    - paragraph [ref=f3e15]: 共同样例：写完第一章 / 写作线 / 1 段旅程 · 15 分钟专注。更改内容会同步到三案；全部操作仅在原型内生效。
+  - main [ref=f3e17]:
+    - article [ref=f3e18]:
+      - generic [ref=f3e19]:
+        - heading "A · 站台导视" [level=2] [ref=f3e20]
+        - generic [ref=f3e21]: PLATFORM
+      - region "方案 A 站台导视" [ref=f3e22]:
+        - generic [ref=f3e23]: 9:41
+        - generic [ref=f3e32]:
+          - generic [ref=f3e33]: METROFOCUS
+          - button "设置" [ref=f3e37] [cursor=pointer]
+        - generic [ref=f3e38]:
+          - generic [ref=f3e39]:
+            - generic [ref=f3e40]: 始发站 · 此刻
+            - generic [ref=f3e42]: 累计 0 min
+          - heading "下一站，心无旁骛。" [level=1] [ref=f3e43]
+          - paragraph [ref=f3e44]: 让想法抵达纸面
+          - generic [ref=f3e45]:
+            - generic [ref=f3e46]:
+              - generic [ref=f3e47]:
+                - generic [ref=f3e48]: "01"
+                - generic [ref=f3e49]: 写作线
+              - generic [ref=f3e50]: LOCAL
+            - img "从此刻出发的线路示意图" [ref=f3e51]
+            - generic [ref=f3e63]:
+              - generic [ref=f3e64]: 此刻
+              - generic [ref=f3e65]: 下一站
+            - generic [ref=f3e66]:
+              - generic [ref=f3e67]: 这一程，想完成什么？
+              - textbox "这一程，想完成什么？" [ref=f3e69]:
+                - /placeholder: 想专注完成什么？
+                - text: 写完第一章
+          - group "任务线路" [ref=f3e72]:
+            - button "写作" [pressed] [ref=f3e73] [cursor=pointer]
+            - button "代码" [ref=f3e75] [cursor=pointer]
+            - button "阅读" [ref=f3e77] [cursor=pointer]
+            - button "生活" [ref=f3e79] [cursor=pointer]
+          - generic [ref=f3e81]:
+            - heading "选择班次" [level=3] [ref=f3e82]
+            - button "编排" [ref=f3e83] [cursor=pointer]
+          - generic [ref=f3e84]:
+            - button "微步短驳, 15 分钟, 1" [pressed] [ref=f3e85] [cursor=pointer]:
+              - generic [ref=f3e86]: LOCAL
+              - generic [ref=f3e87]: "15"
+              - generic [ref=f3e88]:
+                - generic [ref=f3e89]: 分钟
+                - generic [ref=f3e90]: ×1
+              - generic [ref=f3e91]: 微步短驳
+            - button "经典通勤, 25 分钟, 4" [ref=f3e92] [cursor=pointer]:
+              - generic [ref=f3e93]: COMMUTER
+              - generic [ref=f3e94]: "25"
+              - generic [ref=f3e95]:
+                - generic [ref=f3e96]: 分钟
+                - generic [ref=f3e97]: ×4
+              - generic [ref=f3e98]: 经典通勤
+            - button "特快直达, 50 分钟, 2" [ref=f3e99] [cursor=pointer]:
+              - generic [ref=f3e100]: EXPRESS
+              - generic [ref=f3e101]: "50"
+              - generic [ref=f3e102]:
+                - generic [ref=f3e103]: 分钟
+                - generic [ref=f3e104]: ×2
+              - generic [ref=f3e105]: 特快直达
+          - generic [ref=f3e106]: 直达，不换乘
+        - generic [ref=f3e110]:
+          - generic [ref=f3e111]:
+            - strong [ref=f3e112]: 1 段旅程 · 15 分钟专注
+            - generic [ref=f3e113]: 30 秒候车准备
+          - button "检票发车" [ref=f3e114] [cursor=pointer]
+        - navigation "App navigation" [ref=f3e116]:
+          - button "车站" [ref=f3e117] [cursor=pointer]
+          - button "路网" [ref=f3e118] [cursor=pointer]
+          - button "票夹" [ref=f3e119] [cursor=pointer]
+      - generic [ref=f3e121]:
+        - strong [ref=f3e122]: 线路成为阅读动线
+        - text: 熟悉的横向班次卡，保留交通感；比 B 占用更多图形空间。
+        - button "暂选 A · 站台导视" [ref=f3e123] [cursor=pointer]
+    - article [ref=f3e124]:
+      - generic [ref=f3e125]:
+        - heading "B · 发车时刻表" [level=2] [ref=f3e126]
+        - generic [ref=f3e127]: TIMETABLE
+      - region "方案 B 发车时刻表" [ref=f3e128]:
+        - generic [ref=f3e129]: 9:41
+        - generic [ref=f3e138]:
+          - generic [ref=f3e139]: METROFOCUS
+          - button "设置" [ref=f3e143] [cursor=pointer]
+        - generic [ref=f3e144]:
+          - generic [ref=f3e145]:
+            - generic [ref=f3e146]:
+              - heading "下一站，心无旁骛。" [level=1] [ref=f3e147]
+              - paragraph [ref=f3e148]: 让想法抵达纸面
+            - generic [ref=f3e149]: "01"
+          - generic [ref=f3e150]:
+            - generic [ref=f3e151]: 这一程，想完成什么？
+            - textbox "这一程，想完成什么？" [ref=f3e153]:
+              - /placeholder: 想专注完成什么？
+              - text: 写完第一章
+          - group "任务线路" [ref=f3e156]:
+            - button "写作" [pressed] [ref=f3e157] [cursor=pointer]
+            - button "代码" [ref=f3e159] [cursor=pointer]
+            - button "阅读" [ref=f3e161] [cursor=pointer]
+            - button "生活" [ref=f3e163] [cursor=pointer]
+          - generic [ref=f3e165]:
+            - heading "选择班次" [level=3] [ref=f3e166]
+            - button "编排" [ref=f3e167] [cursor=pointer]
+          - generic [ref=f3e168]:
+            - button "15 分钟 微步短驳 1 段 · 15 分钟专注" [pressed] [ref=f3e169] [cursor=pointer]:
+              - generic [ref=f3e170]:
+                - generic [ref=f3e171]: "15"
+                - generic [ref=f3e172]: 分钟
+              - generic [ref=f3e173]:
+                - heading "微步短驳" [level=4] [ref=f3e174]
+                - paragraph [ref=f3e175]: 1 段 · 15 分钟专注
+            - button "25 分钟 经典通勤 4 段 · 100 分钟专注" [ref=f3e177] [cursor=pointer]:
+              - generic [ref=f3e178]:
+                - generic [ref=f3e179]: "25"
+                - generic [ref=f3e180]: 分钟
+              - generic [ref=f3e181]:
+                - heading "经典通勤" [level=4] [ref=f3e182]
+                - paragraph [ref=f3e183]: 4 段 · 100 分钟专注
+            - button "50 分钟 特快直达 2 段 · 100 分钟专注" [ref=f3e185] [cursor=pointer]:
+              - generic [ref=f3e186]:
+                - generic [ref=f3e187]: "50"
+                - generic [ref=f3e188]: 分钟
+              - generic [ref=f3e189]:
+                - heading "特快直达" [level=4] [ref=f3e190]
+                - paragraph [ref=f3e191]: 2 段 · 100 分钟专注
+          - generic [ref=f3e193]:
+            - generic [ref=f3e194]: 始发站 · 此刻
+            - generic [ref=f3e195]: 累计 0 min
+          - generic [ref=f3e196]: 直达，不换乘
+        - generic [ref=f3e200]:
+          - generic [ref=f3e201]:
+            - strong [ref=f3e202]: 1 段旅程 · 15 分钟专注
+            - generic [ref=f3e203]: 30 秒候车准备
+          - button "检票发车" [ref=f3e204] [cursor=pointer]
+        - navigation "App navigation" [ref=f3e206]:
+          - button "车站" [ref=f3e207] [cursor=pointer]
+          - button "路网" [ref=f3e208] [cursor=pointer]
+          - button "票夹" [ref=f3e209] [cursor=pointer]
+      - generic [ref=f3e211]:
+        - strong [ref=f3e212]: 更快比较与开始
+        - text: 任务输入与班次参数最清楚；装饰更少，纸票感留给到站。
+        - button "暂选 B · 发车时刻表" [ref=f3e213] [cursor=pointer]
+    - article [ref=f3e214]:
+      - generic [ref=f3e215]:
+        - heading "C · 随身通行证" [level=2] [ref=f3e216]
+        - generic [ref=f3e217]: BOARDING PASS
+      - region "方案 C 随身通行证" [ref=f3e218]:
+        - generic [ref=f3e219]: 9:41
+        - generic [ref=f3e228]:
+          - generic [ref=f3e229]: METROFOCUS
+          - button "设置" [ref=f3e233] [cursor=pointer]
+        - generic [ref=f3e234]:
+          - heading "下一站，心无旁骛。" [level=1] [ref=f3e235]
+          - paragraph [ref=f3e236]: 让想法抵达纸面
+          - group "任务线路" [ref=f3e237]:
+            - button "写作" [pressed] [ref=f3e238] [cursor=pointer]
+            - button "代码" [ref=f3e240] [cursor=pointer]
+            - button "阅读" [ref=f3e242] [cursor=pointer]
+            - button "生活" [ref=f3e244] [cursor=pointer]
+          - generic [ref=f3e246]:
+            - generic [ref=f3e247]:
+              - generic [ref=f3e248]: 个人通行凭证
+              - generic [ref=f3e249]: MF / 001
+            - generic [ref=f3e250]:
+              - generic [ref=f3e251]:
+                - generic [ref=f3e252]: "01"
+                - text: 写作线
+              - generic [ref=f3e253]: ·
+              - generic [ref=f3e254]: 此刻
+            - generic [ref=f3e257]: 这一程，想完成什么？
+            - textbox "这一程，想完成什么？" [ref=f3e259]:
+              - /placeholder: 想专注完成什么？
+              - text: 写完第一章
+            - generic [ref=f3e262]:
+              - heading "选择班次" [level=3] [ref=f3e263]
+              - button "编排" [ref=f3e264] [cursor=pointer]
+            - generic [ref=f3e265]:
+              - button "微步短驳, 15 分钟, 1" [pressed] [ref=f3e266] [cursor=pointer]:
+                - strong [ref=f3e267]: "15"
+                - emphasis [ref=f3e268]: 分钟
+                - generic [ref=f3e269]: 微步短驳
+              - button "经典通勤, 25 分钟, 4" [ref=f3e270] [cursor=pointer]:
+                - strong [ref=f3e271]: "25"
+                - emphasis [ref=f3e272]: 分钟
+                - generic [ref=f3e273]: 经典通勤
+              - button "特快直达, 50 分钟, 2" [ref=f3e274] [cursor=pointer]:
+                - strong [ref=f3e275]: "50"
+                - emphasis [ref=f3e276]: 分钟
+                - generic [ref=f3e277]: 特快直达
+            - generic [ref=f3e278]:
+              - generic [ref=f3e279]:
+                - strong [ref=f3e280]: 微步短驳
+                - paragraph [ref=f3e281]: 15 分钟 × 1 段
+              - generic [ref=f3e282]: 尚未发车READY WHEN YOU ARE
+          - generic [ref=f3e284]:
+            - generic [ref=f3e285]: 始发站 · 此刻
+            - generic [ref=f3e286]: 累计 0 min
+          - generic [ref=f3e287]: 直达，不换乘
+        - generic [ref=f3e291]:
+          - generic [ref=f3e292]:
+            - strong [ref=f3e293]: 1 段旅程 · 15 分钟专注
+            - generic [ref=f3e294]: 30 秒候车准备
+          - button "检票发车" [ref=f3e295] [cursor=pointer]
+        - navigation "App navigation" [ref=f3e297]:
+          - button "车站" [ref=f3e298] [cursor=pointer]
+          - button "路网" [ref=f3e299] [cursor=pointer]
+          - button "票夹" [ref=f3e300] [cursor=pointer]
+      - generic [ref=f3e302]:
+        - strong [ref=f3e303]: 出发与到站形成呼应
+        - text: 编辑过程像填写通行证；浅色票面存在感更强，安静程度略低。
+        - button "暂选 C · 随身通行证" [ref=f3e304] [cursor=pointer]

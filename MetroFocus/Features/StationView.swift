@@ -37,100 +37,35 @@ final class JourneyDraft {
 struct StationView: View {
     @Environment(AppModel.self) private var app
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var showsEditor = false
     @State private var showsSettings = false
+    @State private var showsTaskError = false
     @FocusState private var destinationFocused: Bool
+    @ScaledMetric(relativeTo: .title2) private var taskSize = 25
+    @ScaledMetric(relativeTo: .title) private var serviceSize = 32
 
     var body: some View {
-        @Bindable var draft = app.draft
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 17) {
-                    adaptiveRow {
-                        HStack(spacing: 6) {
-                            Circle().fill(draft.line.color).frame(width: 6, height: 6)
-                            Text(typeSize.isAccessibilitySize ? L("始发站", "ORIGIN") : L("始发站 · 此刻", "DEPARTURE · NOW")).font(.caption.weight(.semibold)).tracking(1.2).lineLimit(1).minimumScaleFactor(0.8)
-                        }
-                        if !typeSize.isAccessibilitySize { Spacer() }
-                        Text(L("累计", "TOTAL") + "  " + minuteText(app.engine.totalFocusSeconds()) + " min")
-                            .font(.caption.monospacedDigit())
-                    }.foregroundStyle(MetroTheme.muted)
-
-                    VStack(alignment: .leading, spacing: 7) {
+                VStack(alignment: .leading, spacing: 15) {
+                    VStack(alignment: .leading, spacing: 5) {
                         Text(L("下一站，心无旁骛。", "Next stop. A clearer mind."))
-                            .font(.system(.title, design: .default, weight: .bold)).tracking(-0.7)
-                            .lineLimit(typeSize.isAccessibilitySize ? nil : 1).minimumScaleFactor(0.8)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Text(draft.line.subtitle).font(.subheadline).foregroundStyle(MetroTheme.muted)
+                            .font(.title.bold()).tracking(-0.7).fixedSize(horizontal: false, vertical: true)
+                        Text(app.draft.line.subtitle).font(.subheadline).foregroundStyle(MetroTheme.muted)
                     }
-
-                    VStack(spacing: 0) {
-                        adaptiveRow {
-                            LineBadge(line: draft.line)
-                            if !typeSize.isAccessibilitySize { Spacer() }
-                            HStack(spacing: 0) {
-                                ForEach(TransitLine.allCases) { line in
-                                    Button {
-                                        withAnimation(.easeInOut(duration: 0.25)) { draft.line = line }
-                                        app.sensory.feedback(.selection)
-                                    } label: {
-                                        Text(String(line.number)).font(.caption.monospaced().weight(.bold))
-                                            .foregroundStyle(draft.line == line ? MetroTheme.background : line.color)
-                                            .frame(width: 26, height: 26)
-                                            .background(draft.line == line ? line.color : line.color.opacity(0.09), in: Circle())
-                                            .frame(width: 44, height: 44)
-                                    }.buttonStyle(.plain).accessibilityLabel(line.title)
-                                        .accessibilityIdentifier("line_\(line.rawValue)")
-                                        .accessibilityAddTraits(draft.line == line ? .isSelected : [])
-                                }
-                            }
-                        }
-                        RailArtwork(color: draft.line.color, progress: 0.22, stationCount: max(2, draft.segmentCount + 1))
-                            .frame(height: 75).padding(.top, 0)
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(L("此刻", "Here & now")).font(.caption).foregroundStyle(MetroTheme.muted)
-                            Spacer()
-                            Text(L("你的下一站", "Your next stop")).font(.caption).foregroundStyle(draft.line.color)
-                        }.padding(.top, -6).padding(.bottom, 12)
-                        TransitDivider()
-                        HStack(spacing: 12) {
-                            Image(systemName: "mappin.and.ellipse").font(.title3).foregroundStyle(draft.line.color)
-                            TextField(L("想专注完成什么？", "What are you working on?"), text: $draft.task,
-                                      prompt: Text(L("想专注完成什么？", "What are you working on?")).foregroundStyle(MetroTheme.muted))
-                                .font(.headline).focused($destinationFocused).submitLabel(.done)
-                                .onSubmit { destinationFocused = false }
-                                .accessibilityIdentifier("destinationField")
-                                .onChange(of: draft.task) { _, value in if value.count > 24 { draft.task = String(value.prefix(24)) } }
-                            if !draft.task.isEmpty {
-                                Button { draft.task = "" } label: { Image(systemName: "xmark.circle.fill").foregroundStyle(MetroTheme.muted).frame(width: 44, height: 44) }
-                                    .accessibilityLabel(L("清空任务名称", "Clear task name"))
-                            }
-                        }.frame(minHeight: 52)
-                    }.padding(.horizontal, 18).padding(.top, 12)
-                        .background(MetroTheme.surface, in: RoundedRectangle(cornerRadius: 22))
-
-                    VStack(alignment: .leading, spacing: 13) {
-                        adaptiveRow {
-                            SectionLabel(title: L("选择班次", "Choose your service"))
-                            Button { destinationFocused = false; showsEditor = true } label: {
-                                HStack(spacing: 5) { Image(systemName: "slider.horizontal.3"); Text(L("编排", "Edit route")) }.font(.subheadline)
-                                    .frame(minHeight: 44)
-                            }.foregroundStyle(MetroTheme.muted).accessibilityIdentifier("editRoute")
-                        }
-                        ScrollView(.horizontal) {
-                            HStack(spacing: 10) {
-                                serviceCard(.shuttle, minutes: 15, segments: 1)
-                                serviceCard(.standard, minutes: 25, segments: 4)
-                                serviceCard(.express, minutes: 50, segments: 2)
-                                if draft.kind == .custom { serviceCard(.custom, minutes: draft.customFocus, segments: draft.customCount) }
-                            }.padding(.horizontal, 24)
-                        }.contentMargins(.trailing, 0).scrollIndicators(.hidden).padding(.horizontal, -24)
-                    }
+                    lineSelector
+                    ticketForm
+                    adaptiveRow {
+                        Text(L("始发站 · 此刻", "DEPARTURE · NOW"))
+                        if !typeSize.isAccessibilitySize { Spacer() }
+                        Text(L("累计", "TOTAL") + " " + minuteText(app.engine.totalFocusSeconds()) + " min").monospacedDigit()
+                    }.font(.caption).foregroundStyle(MetroTheme.muted)
                     if let state = app.engine.state, state.isActive {
                         Label(L("你已有一趟进行中的旅程", "Your train is already on its way"), systemImage: "tram.fill")
                             .font(.subheadline).foregroundStyle(state.plan.line.color)
                     }
-                }.padding(.horizontal, 24).padding(.top, 16).padding(.bottom, 18)
+                }.padding(.horizontal, 22).padding(.top, 16).padding(.bottom, 16)
             }
             .scrollDismissesKeyboard(.interactively)
             .background(MetroTheme.background)
@@ -143,31 +78,8 @@ struct StationView: View {
                 }
             }
             .toolbarBackground(MetroTheme.background, for: .navigationBar)
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                VStack(spacing: 9) {
-                    Button {
-                        destinationFocused = false
-                        if app.engine.state?.isActive == true { app.showsJourney = true }
-                        else if draft.isValid { draft.remember(); app.startJourney(draft.plan) }
-                        else { destinationFocused = true }
-                    } label: {
-                        if typeSize.isAccessibilitySize {
-                            Text(app.engine.state?.isActive == true ? L("返回运行舱", "Back on board") : L("检票发车", "All aboard"))
-                                .multilineTextAlignment(.center).padding(.horizontal, 12).padding(.vertical, 10)
-                        } else { HStack {
-                            Image(systemName: "ticket.fill")
-                            Spacer()
-                            Text(app.engine.state?.isActive == true ? L("返回运行舱", "Back on board") : L("检票发车", "All aboard"))
-                            Spacer()
-                            Image(systemName: "arrow.right")
-                        }.padding(.horizontal, 21) }
-                    }.buttonStyle(MetroButtonStyle(tint: draft.line.color)).accessibilityIdentifier("departButton")
-                    Text(journeySummary)
-                        .font(.caption).foregroundStyle(MetroTheme.muted)
-                }.padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 12)
-                    .background(MetroTheme.background)
-            }
-            .sheet(isPresented: $showsEditor) { RouteEditor(draft: draft) }
+            .safeAreaInset(edge: .bottom, spacing: 0) { departure }
+            .sheet(isPresented: $showsEditor) { RouteEditor(draft: app.draft) }
             .sheet(isPresented: $showsSettings) { SettingsView() }
         }
     }
@@ -176,60 +88,181 @@ struct StationView: View {
         typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8)) : AnyLayout(HStackLayout())
     }
 
+    private var ticketForm: some View {
+        @Bindable var draft = app.draft
+        return VStack(alignment: .leading, spacing: 0) {
+            Text(L("个人通行凭证", "PERSONAL TRANSIT PASS"))
+                .font(.caption.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+                .padding(.bottom, 13)
+            TransitDivider(color: MetroTheme.paperRule).padding(.bottom, 17)
+            adaptiveRow {
+                HStack(spacing: 7) {
+                    LineBadge(line: draft.line, compact: true)
+                    Text(draft.line.title).font(.caption.weight(.semibold))
+                }
+                HStack(spacing: 8) {
+                    Text("·").accessibilityHidden(true)
+                    Text(L("此刻", "Here & now"))
+                    Image(systemName: "arrow.right").accessibilityHidden(true)
+                }.font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+            }.padding(.bottom, 13)
+            Text(L("这一程，想完成什么？", "WHAT WILL YOU FINISH?"))
+                .font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+            HStack(spacing: 4) {
+                TextField(L("想专注完成什么？", "What are you working on?"), text: $draft.task,
+                          prompt: Text(L("想专注完成什么？", "What are you working on?")).foregroundStyle(MetroTheme.paperSecondary))
+                    .font(.system(size: taskSize, weight: .semibold)).tint(draft.line.color)
+                    .focused($destinationFocused).submitLabel(.done).frame(minHeight: 44)
+                    .onSubmit { destinationFocused = false }
+                    .accessibilityIdentifier("destinationField")
+                    .onChange(of: draft.task) { _, value in
+                        if value.count > 24 { draft.task = String(value.prefix(24)) }
+                        if draft.isValid { showsTaskError = false }
+                    }
+                Button {
+                    if draft.task.isEmpty { destinationFocused = true }
+                    else { draft.task = ""; destinationFocused = true }
+                } label: {
+                    Image(systemName: draft.task.isEmpty ? "pencil" : "xmark.circle")
+                        .font(.body).foregroundStyle(MetroTheme.paperSecondary).frame(width: 44, height: 44)
+                }.accessibilityLabel(draft.task.isEmpty ? L("编辑任务名称", "Edit task name") : L("清空任务名称", "Clear task name"))
+            }.padding(.top, 3).padding(.bottom, 13)
+            if showsTaskError {
+                Text(L("先写下这次想完成的事。", "Add something you want to finish first."))
+                    .font(.caption).foregroundStyle(MetroTheme.paperError).padding(.bottom, 12)
+                    .accessibilityIdentifier("destinationError")
+            }
+            TransitDivider(color: MetroTheme.paperRule)
+            adaptiveRow {
+                Text(L("选择班次", "Choose your service")).font(.caption.weight(.semibold))
+                if !typeSize.isAccessibilitySize { Spacer() }
+                Button { destinationFocused = false; showsEditor = true } label: {
+                    Label(L("编排", "Edit route"), systemImage: "slider.horizontal.3")
+                        .font(.caption).frame(minHeight: 44)
+                }.foregroundStyle(MetroTheme.paperSecondary).accessibilityIdentifier("editRoute")
+            }.foregroundStyle(MetroTheme.paperSecondary).padding(.top, 8).padding(.bottom, 6)
+            LazyVGrid(columns: serviceColumns, spacing: 7) {
+                serviceCard(.shuttle, minutes: 15, segments: 1)
+                serviceCard(.standard, minutes: 25, segments: 4)
+                serviceCard(.express, minutes: 50, segments: 2)
+                if draft.kind == .custom { serviceCard(.custom, minutes: draft.customFocus, segments: draft.customCount) }
+            }
+            DashedRule().stroke(MetroTheme.paperPerforation, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                .frame(height: 1).padding(.top, 22)
+                .anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
+            adaptiveRow {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(draft.kind.title).font(.subheadline.weight(.semibold))
+                    Text(String(format: draft.segmentCount == 1 ? L("%d 分钟 × %d 段", "%d min × %d stop") : L("%d 分钟 × %d 段", "%d min × %d stops"), draft.focusMinutes, draft.segmentCount))
+                        .font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+                    if typeSize.isAccessibilitySize {
+                        Text(journeySummary).font(.caption.weight(.semibold))
+                            .accessibilityIdentifier("accessibleJourneySummary")
+                        Text(L("30 秒候车准备", "30-second boarding"))
+                            .font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+                    }
+                }
+                if !typeSize.isAccessibilitySize { Spacer(minLength: 8) }
+                VStack(spacing: 3) {
+                    Text(L("尚未发车", "NOT YET BOARDED"))
+                    Text("READY WHEN YOU ARE")
+                }.font(.system(.caption2, design: .monospaced, weight: .semibold))
+                    .foregroundStyle(MetroTheme.stampInk).multilineTextAlignment(.center)
+                    .padding(.horizontal, 7).padding(.vertical, 6)
+                    .overlay(RoundedRectangle(cornerRadius: 3).stroke(MetroTheme.stampInk, lineWidth: 1))
+                    .rotationEffect(.degrees(-6))
+            }.padding(.top, 17).padding(.bottom, 21)
+        }
+        .padding(.horizontal, 21).padding(.top, 21).foregroundStyle(MetroTheme.paperInk)
+        .backgroundPreferenceValue(TicketTearPreference.self) { anchor in
+            GeometryReader { geometry in
+                MetroTheme.paper.mask(TicketSilhouette(punched: false, tearY: anchor.map { geometry[$0].maxY }).fill(style: FillStyle(eoFill: true)))
+            }
+        }
+    }
+
+    private var serviceColumns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: 6), count: typeSize.isAccessibilitySize ? 1 : (app.draft.kind == .custom ? 2 : 3))
+    }
+
+    private var departure: some View {
+        VStack(spacing: 10) {
+            if !typeSize.isAccessibilitySize {
+                ViewThatFits(in: .horizontal) {
+                    HStack {
+                        Text(journeySummary).font(.caption.weight(.semibold))
+                        Spacer(minLength: 6)
+                        Text(L("30 秒候车准备", "30-second boarding")).font(.caption2).foregroundStyle(MetroTheme.muted)
+                    }
+                    Text(journeySummary).font(.caption.weight(.semibold))
+                }
+            }
+            Button {
+                destinationFocused = false
+                if app.engine.state?.isActive == true { app.showsJourney = true }
+                else if app.draft.isValid { app.draft.remember(); app.startJourney(app.draft.plan) }
+                else { showsTaskError = true; destinationFocused = true }
+            } label: {
+                if typeSize.isAccessibilitySize {
+                    Text(app.engine.state?.isActive == true ? L("返回运行舱", "Back on board") : L("检票发车", "All aboard"))
+                        .multilineTextAlignment(.center).padding(.horizontal, 12).padding(.vertical, 10)
+                } else {
+                    HStack {
+                        Image(systemName: "ticket")
+                        Spacer()
+                        Text(app.engine.state?.isActive == true ? L("返回运行舱", "Back on board") : L("检票发车", "All aboard"))
+                        Spacer()
+                        Image(systemName: "arrow.right")
+                    }.padding(.horizontal, 18)
+                }
+            }.buttonStyle(MetroButtonStyle(tint: MetroTheme.paper, foreground: MetroTheme.paperInk, cornerRadius: 10))
+                .accessibilityIdentifier("departButton")
+        }.padding(.horizontal, 22).padding(.top, 12).padding(.bottom, 10).background(MetroTheme.background)
+    }
+
     private var journeySummary: String {
         let draft = app.draft
-        let format: String
-        if typeSize.isAccessibilitySize {
-            format = draft.segmentCount == 1 ? L("%d 段 · %d 分钟", "%d stop · %d min") : L("%d 段 · %d 分钟", "%d stops · %d min")
-        } else {
-            format = draft.segmentCount == 1 ? L("%d 段旅程 · %d 分钟专注", "%d stop · %d minutes of focus") : L("%d 段旅程 · %d 分钟专注", "%d stops · %d minutes of focus")
-        }
+        let format = draft.segmentCount == 1 ? L("%d 段旅程 · %d 分钟专注", "%d stop · %d minutes of focus") : L("%d 段旅程 · %d 分钟专注", "%d stops · %d minutes of focus")
         return String(format: format, draft.segmentCount, draft.focusMinutes * draft.segmentCount)
     }
 
     private func serviceCard(_ kind: ServiceKind, minutes: Int, segments: Int) -> some View {
         let selected = app.draft.kind == kind
         return Button {
-            withAnimation(.snappy(duration: 0.25)) { app.draft.kind = kind }
+            withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.18)) { app.draft.kind = kind }
             app.sensory.feedback(.selection)
         } label: {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text(kind.code).font(.system(.caption2, design: .monospaced, weight: .medium)).tracking(0.5)
-                    Spacer(minLength: 2)
-                    if selected { Image(systemName: "checkmark.circle.fill").font(.caption) }
-                }
-                Text(String(minutes)).font(.system(size: typeSize.isAccessibilitySize ? 62 : 51, weight: .bold, design: .rounded)).monospacedDigit().tracking(-2)
+            VStack(spacing: 8) {
                 HStack(alignment: .firstTextBaseline, spacing: 3) {
-                    Text(L("分钟", "min")).font(.caption)
-                    Spacer(minLength: 0)
-                    Text("×\(segments)").font(.caption.monospaced().weight(.semibold))
+                    Text(String(minutes)).font(.system(size: serviceSize, weight: .semibold)).monospacedDigit().tracking(-1)
+                    Text(L("分钟", "min")).font(.caption2)
                 }
-                Text(kind.title).font(.subheadline.weight(.semibold)).lineLimit(1).minimumScaleFactor(0.75)
-            }.foregroundStyle(selected ? MetroTheme.background : MetroTheme.ink)
-                .padding(15).frame(width: typeSize.isAccessibilitySize ? 290 : 132, alignment: .leading)
-                .background(selected ? app.draft.line.color : MetroTheme.surface, in: UnevenRoundedRectangle(topLeadingRadius: 18, bottomLeadingRadius: 23, bottomTrailingRadius: 23, topTrailingRadius: 18))
-                .contentShape(RoundedRectangle(cornerRadius: 18))
+                Text(kind.title + " ×\(segments)").font(.caption2.weight(.semibold))
+                    .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
+            }.frame(maxWidth: .infinity, minHeight: 74).padding(.horizontal, 3).padding(.vertical, 8)
+                .foregroundStyle(selected ? MetroTheme.paper : MetroTheme.paperInk)
+                .background(selected ? MetroTheme.paperInk : .clear, in: RoundedRectangle(cornerRadius: 7))
+                .overlay(RoundedRectangle(cornerRadius: 7).stroke(selected ? MetroTheme.paperInk : MetroTheme.paperRule, lineWidth: 1))
+                .contentShape(RoundedRectangle(cornerRadius: 7))
         }.buttonStyle(.plain).accessibilityIdentifier("service_\(kind.rawValue)")
             .accessibilityLabel("\(kind.title), \(minutes) " + L("分钟", "minutes") + ", \(segments) " + L("段", "stops"))
             .accessibilityAddTraits(selected ? .isSelected : [])
     }
 
     private var lineSelector: some View {
-        HStack(spacing: 0) {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 5), count: typeSize.isAccessibilitySize ? 2 : 4), spacing: 5) {
             ForEach(TransitLine.allCases) { line in
                 Button {
-                    withAnimation(.easeInOut(duration: 0.25)) { app.draft.line = line }
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.18)) { app.draft.line = line }
                     app.sensory.feedback(.selection)
                 } label: {
-                    VStack(spacing: 7) {
-                        Text(String(format: "%02d", line.number))
-                            .font(.system(.subheadline, design: .rounded, weight: .heavy))
-                            .foregroundStyle(app.draft.line == line ? MetroTheme.background : line.color)
-                            .frame(width: 37, height: 30)
-                            .background(app.draft.line == line ? line.color : line.color.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
-                        Text(line.title).font(.caption).foregroundStyle(app.draft.line == line ? MetroTheme.ink : MetroTheme.muted)
-                    }.frame(maxWidth: .infinity, minHeight: 58)
+                    HStack(spacing: 5) {
+                        Circle().fill(line.color).frame(width: 7, height: 7)
+                        Text(line.title).font(.caption.weight(app.draft.line == line ? .semibold : .regular)).fixedSize(horizontal: false, vertical: true)
+                    }.frame(maxWidth: .infinity, minHeight: 44).padding(.horizontal, 2)
+                        .foregroundStyle(app.draft.line == line ? MetroTheme.ink : MetroTheme.muted)
+                        .background(app.draft.line == line ? line.color.opacity(0.09) : .clear, in: RoundedRectangle(cornerRadius: 8))
+                        .contentShape(RoundedRectangle(cornerRadius: 8))
                 }.buttonStyle(.plain).accessibilityIdentifier("line_\(line.rawValue)")
                     .accessibilityAddTraits(app.draft.line == line ? .isSelected : [])
             }

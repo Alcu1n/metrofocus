@@ -234,6 +234,10 @@ final class JourneyFlowTests: XCTestCase {
         // its actionable leaf with the same identifier. Activate the leaf once.
         let choice = choices.element(boundBy: choices.count - 1)
         XCTAssertTrue(choice.isHittable)
+        let menuEvidence = XCTAttachment(string: "Selected leaf: \(choice.frame)\n\(app.debugDescription)")
+        menuEvidence.name = "Export menu before single activation"
+        menuEvidence.lifetime = .keepAlways
+        add(menuEvidence)
         choice.tap()
         let closed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: choices.firstMatch)
         XCTAssertEqual(XCTWaiter.wait(for: [closed], timeout: 5), .completed,

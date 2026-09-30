@@ -1,0 +1,147 @@
+- generic [active] [ref=f35e1]:
+  - banner [ref=f35e2]:
+    - generic [ref=f35e3]: METROFOCUS / C · SELECTED / V2
+    - heading "从准备出发，到时间的存根。" [level=1] [ref=f35e4]
+    - paragraph [ref=f35e5]: 你已选择 C「随身通行证」。这里沿用同一套纸张、墨色、字号与票据分区，比较车站表单与票夹列表。浏览器原型 · 票夹是示例数据，尚未应用到 SwiftUI。
+    - generic [ref=f35e6]:
+      - button "两页并排" [pressed] [ref=f35e7] [cursor=pointer]
+      - button "车站" [ref=f35e8] [cursor=pointer]
+      - button "票夹" [ref=f35e9] [cursor=pointer]
+      - combobox "界面语言" [ref=f35e11]:
+        - option "简体中文" [selected]
+        - option "English"
+      - button "查看空票夹" [ref=f35e12] [cursor=pointer]
+      - button "长任务示例" [ref=f35e13] [cursor=pointer]
+      - button "重置示例" [ref=f35e14] [cursor=pointer]
+    - paragraph [ref=f35e15]: 已选 C · 3 张示例车票 / 215 分钟 · 写完第一章 / 写作线 / 1 段旅程 · 15 分钟专注。所有变化仅保留在本次预览。
+  - main [ref=f35e17]:
+    - article [ref=f35e18]:
+      - generic [ref=f35e19]:
+        - heading "01 · 车站" [level=2] [ref=f35e20]
+        - generic [ref=f35e21]: READY TO DEPART
+      - generic [ref=f35e22]:
+        - generic [ref=f35e23]: 9:41
+        - generic [ref=f35e32]:
+          - generic [ref=f35e33]: METROFOCUS
+          - button "设置" [ref=f35e37] [cursor=pointer]
+        - generic [ref=f35e38]:
+          - heading "下一站，心无旁骛。" [level=1] [ref=f35e39]
+          - paragraph [ref=f35e40]: 让想法抵达纸面
+          - group "任务线路" [ref=f35e41]:
+            - button "写作" [pressed] [ref=f35e42] [cursor=pointer]
+            - button "代码" [ref=f35e44] [cursor=pointer]
+            - button "阅读" [ref=f35e46] [cursor=pointer]
+            - button "生活" [ref=f35e48] [cursor=pointer]
+          - generic [ref=f35e50]:
+            - generic [ref=f35e51]:
+              - generic [ref=f35e52]: 个人通行凭证
+              - generic [ref=f35e53]: MF / 004
+            - generic [ref=f35e54]:
+              - generic [ref=f35e55]:
+                - generic [ref=f35e56]: "01"
+                - text: 写作线
+              - generic [ref=f35e57]: ·
+              - generic [ref=f35e58]: 此刻
+            - generic [ref=f35e61]: 这一程，想完成什么？
+            - textbox "这一程，想完成什么？" [ref=f35e63]:
+              - /placeholder: 想专注完成什么？
+              - text: 写完第一章
+            - generic [ref=f35e66]:
+              - heading "选择班次" [level=3] [ref=f35e67]
+              - button "编排" [ref=f35e68] [cursor=pointer]
+            - generic [ref=f35e69]:
+              - button "微步短驳, 15 分钟, 1" [pressed] [ref=f35e70] [cursor=pointer]:
+                - strong [ref=f35e71]: "15"
+                - emphasis [ref=f35e72]: 分钟
+                - generic [ref=f35e73]: 微步短驳 ×1
+              - button "经典通勤, 25 分钟, 4" [ref=f35e74] [cursor=pointer]:
+                - strong [ref=f35e75]: "25"
+                - emphasis [ref=f35e76]: 分钟
+                - generic [ref=f35e77]: 经典通勤 ×4
+              - button "特快直达, 50 分钟, 2" [ref=f35e78] [cursor=pointer]:
+                - strong [ref=f35e79]: "50"
+                - emphasis [ref=f35e80]: 分钟
+                - generic [ref=f35e81]: 特快直达 ×2
+            - generic [ref=f35e82]:
+              - generic [ref=f35e83]:
+                - strong [ref=f35e84]: 微步短驳
+                - paragraph [ref=f35e85]: 15 分钟 × 1 段
+              - generic [ref=f35e86]: 尚未发车READY WHEN YOU ARE
+          - generic [ref=f35e88]:
+            - generic [ref=f35e89]: 始发站 · 此刻
+            - generic [ref=f35e90]: 累计 215 min
+          - generic [ref=f35e91]: 直达，不换乘
+        - generic [ref=f35e95]:
+          - generic [ref=f35e96]:
+            - strong [ref=f35e97]: 1 段旅程 · 15 分钟专注
+            - generic [ref=f35e98]: 30 秒候车准备
+          - button "检票发车" [ref=f35e99] [cursor=pointer]
+        - navigation "App navigation" [ref=f35e101]:
+          - button "车站" [ref=f35e102] [cursor=pointer]
+          - button "路网" [ref=f35e103] [cursor=pointer]
+          - button "票夹" [ref=f35e104] [cursor=pointer]
+      - generic [ref=f35e106]:
+        - strong [ref=f35e107]: 未发出的票，是一张可填写的表单。
+        - text: 保留你选择的 C：任务、班次与行程摘要收在同一张票面。
+    - article [ref=f35e108]:
+      - generic [ref=f35e109]:
+        - heading "02 · 票夹" [level=2] [ref=f35e110]
+        - generic [ref=f35e111]: TIME, WELL KEPT
+      - generic [ref=f35e112]:
+        - generic [ref=f35e113]: 9:41
+        - generic [ref=f35e122]:
+          - generic [ref=f35e123]: METROFOCUS
+          - button "设置" [ref=f35e127] [cursor=pointer]
+        - generic [ref=f35e128]:
+          - heading "时间的存根。" [level=1] [ref=f35e129]
+          - paragraph [ref=f35e130]: 每一张，都是抵达
+          - generic [ref=f35e131]:
+            - strong [ref=f35e132]: "03"
+            - generic [ref=f35e133]: 张车票
+            - generic [ref=f35e134]: 累计 215 min
+          - generic [ref=f35e135]:
+            - generic [ref=f35e136]:
+              - generic [ref=f35e137]: 9 月 30 日 · 今天
+              - generic [ref=f35e139]: "02"
+            - button "写完第一章, 15 分钟, 已到站" [ref=f35e140] [cursor=pointer]:
+              - generic [ref=f35e141]:
+                - generic [ref=f35e142]:
+                  - generic [ref=f35e143]: "01"
+                  - text: 写作线
+                - generic [ref=f35e144]: 22:30 · LOCAL
+              - heading "写完第一章" [level=3] [ref=f35e145]
+              - generic [ref=f35e146]:
+                - generic [ref=f35e147]: 15分钟专注
+                - generic [ref=f35e148]: 已到站
+            - button "完成登录页交互, 100 分钟, 已验票" [ref=f35e149] [cursor=pointer]:
+              - generic [ref=f35e150]:
+                - generic [ref=f35e151]:
+                  - generic [ref=f35e152]: "02"
+                  - text: 代码线
+                - generic [ref=f35e153]: 19:50 · EXPRESS
+              - heading "完成登录页交互" [level=3] [ref=f35e154]
+              - generic [ref=f35e155]:
+                - generic [ref=f35e156]: 100分钟专注
+                - generic [ref=f35e157]: 已验票
+          - generic [ref=f35e158]:
+            - generic [ref=f35e159]:
+              - generic [ref=f35e160]: 9 月 29 日 · 昨天
+              - generic [ref=f35e162]: "01"
+            - button "读完《局外人》, 100 分钟, 已验票" [ref=f35e163] [cursor=pointer]:
+              - generic [ref=f35e164]:
+                - generic [ref=f35e165]:
+                  - generic [ref=f35e166]: "03"
+                  - text: 阅读线
+                - generic [ref=f35e167]: 17:55 · COMMUTER
+              - heading "读完《局外人》" [level=3] [ref=f35e168]
+              - generic [ref=f35e169]:
+                - generic [ref=f35e170]: 100分钟专注
+                - generic [ref=f35e171]: 已验票
+          - paragraph [ref=f35e172]: 你的每一分钟，都算数。
+        - navigation "App navigation" [ref=f35e173]:
+          - button "车站" [ref=f35e174] [cursor=pointer]
+          - button "路网" [ref=f35e175] [cursor=pointer]
+          - button "票夹" [ref=f35e176] [cursor=pointer]
+      - generic [ref=f35e178]:
+        - strong [ref=f35e179]: 到站的票，是一段可回看的时间。
+        - text: 按日期整理已完成旅程；点击票面查看详情和打孔状态。

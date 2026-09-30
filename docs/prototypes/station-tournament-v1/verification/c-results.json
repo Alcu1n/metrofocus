@@ -1,0 +1,82 @@
+{
+  "screens": [
+    {
+      "screen": "station",
+      "lang": "zh",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 874
+    },
+    {
+      "screen": "wallet",
+      "lang": "zh",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 874
+    },
+    {
+      "screen": "station",
+      "lang": "en",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 874
+    },
+    {
+      "screen": "wallet",
+      "lang": "en",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 874
+    },
+    {
+      "screen": "station",
+      "lang": "zh",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 667
+    },
+    {
+      "screen": "wallet",
+      "lang": "zh",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 667
+    },
+    {
+      "screen": "station",
+      "lang": "en",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 667
+    },
+    {
+      "screen": "wallet",
+      "lang": "en",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "buttons": 0,
+      "tabBottom": 667
+    }
+  ],
+  "interactions": [
+    "Both languages and sizes: all three rows reachable, ticket opens, punch updates detail and list, Escape restores row focus",
+    "Empty wallet -> station; empty task rejected; line and service selection; 100-minute total; departure preview; ticket tab"
+  ],
+  "errors": [],
+  "htmlSHA256": "82d97473fbcf5e4cf4c4134c098d41b2909734423e5daef059ecfaefe6af6211"
+}

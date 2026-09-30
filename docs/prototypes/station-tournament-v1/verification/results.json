@@ -1,0 +1,167 @@
+{
+  "viewports": [
+    {
+      "variant": "A",
+      "lang": "zh",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 786,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "B",
+      "lang": "zh",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 786,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "C",
+      "lang": "zh",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 786,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "A",
+      "lang": "en",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 786,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "B",
+      "lang": "en",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 786,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "C",
+      "lang": "en",
+      "width": 402,
+      "height": 874,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 786,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "A",
+      "lang": "zh",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 579,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "B",
+      "lang": "zh",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 579,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "C",
+      "lang": "zh",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 579,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "A",
+      "lang": "en",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 579,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "B",
+      "lang": "en",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 579,
+      "ctaHeight": 56,
+      "smallTargets": []
+    },
+    {
+      "variant": "C",
+      "lang": "en",
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "scrollable": true,
+      "ctaBottom": 579,
+      "ctaHeight": 56,
+      "smallTargets": []
+    }
+  ],
+  "interactions": [
+    "A: shared input/line/service; total; departure preview; empty validation; custom save; cancel from input; settings",
+    "B: shared input/line/service; total; departure preview; empty validation; custom save; cancel from input; settings",
+    "C: shared input/line/service; total; departure preview; empty validation; custom save; cancel from input; settings",
+    "Reference dialog, original screenshot, variant switch, arrow key input isolation"
+  ],
+  "fonts": [
+    {
+      "selector": ".variant-a h1",
+      "fonts": [
+        {
+          "familyName": "PingFang SC",
+          "postScriptName": "PingFangSC-Semibold",
+          "isCustomFont": false,
+          "glyphCount": 9
+        }
+      ]
+    },
+    {
+      "selector": ".variant-a .service-num",
+      "fonts": [
+        {
+          "familyName": ".SF NS",
+          "postScriptName": ".SFNS-Regular_wdth_opsz260000_GRAD_wght2A80000",
+          "isCustomFont": false,
+          "glyphCount": 2
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

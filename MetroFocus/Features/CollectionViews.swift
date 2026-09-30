@@ -2,77 +2,157 @@ import SwiftUI
 
 struct TicketLibraryView: View {
     @Environment(AppModel.self) private var app
+    @ScaledMetric(relativeTo: .title) private var titleSize = 28
+    @ScaledMetric(relativeTo: .title) private var countSize = 32
     private var days: [Date] {
         Array(Set(app.engine.tickets.map { Calendar.current.startOfDay(for: $0.completedAt) })).sorted(by: >)
     }
+    private var savedFocusSeconds: Double { app.engine.tickets.reduce(0) { $0 + $1.focusSeconds } }
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 26) {
-                    HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 23) {
+                    VStack(alignment: .leading, spacing: 7) {
                         Text(L("时间的存根。", "Time, well kept."))
-                            .font(.largeTitle.weight(.bold)).tracking(-1)
-                        Spacer()
+                            .font(.system(size: titleSize, weight: .bold)).tracking(-0.5)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(L("每一张，都是抵达", "Every ticket, an arrival"))
+                            .font(.subheadline).foregroundStyle(MetroTheme.muted)
                     }
-                    HStack(spacing: 8) {
-                        Text(String(format: "%02d", app.engine.tickets.count)).font(.title2.monospacedDigit().weight(.bold))
-                        Text(L("张车票 · 每一张，都是抵达", "tickets · every one, an arrival")).font(.subheadline).foregroundStyle(MetroTheme.muted)
+                    ViewThatFits(in: .horizontal) {
+                        HStack(alignment: .firstTextBaseline) { ticketCount; Spacer(minLength: 12); totalMinutes.fixedSize() }
+                        VStack(alignment: .leading, spacing: 12) { ticketCount; totalMinutes }
                     }
-                    TransitDivider()
+                    .padding(.bottom, 21)
+                    .overlay(alignment: .bottom) { TransitDivider() }
                     if app.engine.tickets.isEmpty {
-                        VStack(spacing: 0) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).stroke(MetroTheme.dim.opacity(0.55), style: StrokeStyle(lineWidth: 1, dash: [4, 5]))
-                                    .frame(width: 220, height: 120).rotationEffect(.degrees(-7))
-                                Image(systemName: "ticket").font(.system(size: 38, weight: .light)).foregroundStyle(MetroTheme.muted)
-                            }.frame(height: 160)
-                            EmptyStationView(title: L("第一张，留给下一程。", "Your first ticket is waiting."), message: L("完成一趟专注旅程，\n把认真度过的时间收藏在这里。", "Finish a focus journey and keep a little piece of time here."), symbol: "")
-                                .padding(.top, -42)
-                            Button(L("去车站发车", "Head to the station")) { app.selectedTab = 0 }.buttonStyle(MetroButtonStyle()).padding(.horizontal, 15)
-                        }
+                        emptyWallet
                     } else {
                         ForEach(days, id: \.self) { day in
-                            VStack(alignment: .leading, spacing: 14) {
-                                Text(day, format: .dateTime.month(.wide).day().weekday()).font(.caption.weight(.semibold)).foregroundStyle(MetroTheme.muted)
-                                ForEach(app.engine.tickets.filter { Calendar.current.isDate($0.completedAt, inSameDayAs: day) }) { ticket in
+                            let tickets = app.engine.tickets.filter { Calendar.current.isDate($0.completedAt, inSameDayAs: day) }
+                            VStack(alignment: .leading, spacing: 12) {
+                                HStack(spacing: 10) {
+                                    Text(dayLabel(day)).font(.caption).fixedSize(horizontal: false, vertical: true).layoutPriority(1)
+                                    TransitDivider()
+                                    Text(String(format: "%02d", tickets.count)).font(.caption.monospaced()).fixedSize()
+                                }.foregroundStyle(MetroTheme.muted)
+                                ForEach(tickets) { ticket in
                                     NavigationLink { TicketDetailView(ticket: ticket) } label: { TicketRow(ticket: ticket) }
                                         .buttonStyle(.plain).accessibilityIdentifier("ticketRow_\(ticket.id.uuidString)")
                                 }
                             }
                         }
+                        Text(String(localized: "wallet.footer", defaultValue: "Every minute matters."))
+                            .font(.caption).foregroundStyle(MetroTheme.muted)
+                            .frame(maxWidth: .infinity).multilineTextAlignment(.center)
                     }
-                }.padding(.horizontal, 24).padding(.top, 20).padding(.bottom, 35)
+                }.padding(.horizontal, 22).padding(.top, 17).padding(.bottom, 24)
             }.background(MetroTheme.background)
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) { Text(L("票夹", "Ticket wallet")).font(.headline).fixedSize(horizontal: true, vertical: false) }
-                    ToolbarItem(placement: .topBarTrailing) { Image(systemName: "ticket").foregroundStyle(MetroTheme.muted) }
+                    ToolbarItem(placement: .topBarLeading) { BrandHeader().fixedSize(horizontal: true, vertical: false) }
+                    ToolbarItem(placement: .topBarTrailing) { Image(systemName: "ticket").foregroundStyle(MetroTheme.muted).accessibilityHidden(true) }
                 }
                 .toolbarBackground(MetroTheme.background, for: .navigationBar)
         }
+    }
+
+    private var ticketCount: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 9) {
+            Text(String(format: "%02d", app.engine.tickets.count)).font(.system(size: countSize, weight: .medium, design: .monospaced)).tracking(-0.8)
+            Text(String(localized: "wallet.ticketCount", defaultValue: "tickets")).font(.caption).foregroundStyle(MetroTheme.muted)
+        }.fixedSize()
+    }
+    private var totalMinutes: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            Text(L("累计", "TOTAL"))
+            Text(minuteText(savedFocusSeconds)).fontWeight(.semibold).monospacedDigit()
+            Text(verbatim: "min")
+        }.font(.caption).foregroundStyle(MetroTheme.muted)
+    }
+    private func dayLabel(_ day: Date) -> String {
+        let date = day.formatted(.dateTime.month(.abbreviated).day())
+        if Calendar.current.isDateInToday(day) { return date + " · " + L("今天", "TODAY") }
+        if Calendar.current.isDateInYesterday(day) { return date + " · " + L("昨天", "YESTERDAY") }
+        return date
+    }
+    private var emptyWallet: some View {
+        VStack(spacing: 18) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 13)
+                    .stroke(MetroTheme.paperRule.opacity(0.6), style: StrokeStyle(lineWidth: 1, dash: [4, 5]))
+                    .frame(width: 220, height: 138).rotationEffect(.degrees(-6))
+                Image(systemName: "ticket").font(.system(size: 42, weight: .light)).foregroundStyle(MetroTheme.paper)
+            }.frame(height: 166).accessibilityHidden(true)
+            Text(L("第一张，留给下一程。", "Your first ticket is waiting."))
+                .font(.title2.weight(.semibold)).multilineTextAlignment(.center)
+            Text(L("完成一趟专注旅程，\n把认真度过的时间收藏在这里。", "Finish a focus journey and keep a little piece of time here."))
+                .font(.subheadline).foregroundStyle(MetroTheme.muted).multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            Button(L("去车站发车", "Head to the station")) { app.selectedTab = 0 }
+                .buttonStyle(MetroButtonStyle(tint: MetroTheme.paper, foreground: MetroTheme.paperInk, cornerRadius: 10)).padding(.top, 10)
+        }.frame(maxWidth: .infinity).padding(.top, 5)
     }
 }
 
 struct TicketRow: View {
     let ticket: Ticket
+    @ScaledMetric(relativeTo: .headline) private var taskSize = 19
+    @ScaledMetric(relativeTo: .title2) private var minutesSize = 27
+    private var status: String { ticket.punchedAt == nil ? L("已到站", "Arrived") : L("已验票", "Validated") }
+
     var body: some View {
-        HStack(spacing: 0) {
-            VStack(spacing: 5) {
-                Text(minuteText(ticket.focusSeconds)).font(.system(.largeTitle, design: .rounded, weight: .bold)).monospacedDigit()
-                Text("MIN").font(.system(.caption2, design: .monospaced)).tracking(1)
-            }.frame(width: 82).foregroundStyle(MetroTheme.paperInk)
-            Rectangle().fill(MetroTheme.paperInk.opacity(0.15)).frame(width: 1).padding(.vertical, 15)
-            VStack(alignment: .leading, spacing: 10) {
-                Text(ticket.task).font(.headline).lineLimit(2)
-                HStack(spacing: 5) {
-                    Circle().fill(ticket.line.color).frame(width: 7, height: 7)
-                    Text(ticket.line.title).font(.caption)
-                    Spacer()
-                    Image(systemName: ticket.punchedAt == nil ? "circle.dotted" : "checkmark.seal.fill").foregroundStyle(Color(hex: 0x306B51))
-                }
-            }.padding(17).foregroundStyle(MetroTheme.paperInk)
-        }.frame(minHeight: 105).background(MetroTheme.paper)
-            .mask(TicketSilhouette(punched: false).fill(style: FillStyle(eoFill: true)))
-            .accessibilityElement(children: .combine)
+        VStack(alignment: .leading, spacing: 0) {
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) { lineLabel.fixedSize(); Spacer(minLength: 8); arrivalLabel.fixedSize() }
+                VStack(alignment: .leading, spacing: 8) { lineLabel; arrivalLabel }
+            }
+            Text(ticket.task).font(.system(size: taskSize, weight: .semibold)).tracking(-0.3)
+                .fixedSize(horizontal: false, vertical: true).padding(.top, 12).padding(.bottom, 13)
+            DashedRule().stroke(MetroTheme.paperPerforation, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                .frame(height: 1).anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
+                .accessibilityHidden(true)
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline) { durationLabel.fixedSize(); Spacer(minLength: 8); stateLabel.fixedSize() }
+                VStack(alignment: .leading, spacing: 10) { durationLabel; stateLabel }
+            }.padding(.top, 11).padding(.bottom, 13)
+        }
+        .padding(.horizontal, 18).padding(.top, 16)
+        .foregroundStyle(MetroTheme.paperInk)
+        .backgroundPreferenceValue(TicketTearPreference.self) { anchor in
+            GeometryReader { geometry in
+                MetroTheme.paper.mask(TicketSilhouette(punched: false, tearY: anchor.map { geometry[$0].midY }, notchRadius: 8).fill(style: FillStyle(eoFill: true)))
+            }
+        }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(ticket.task), \(ticket.line.title), \(minuteText(ticket.focusSeconds)) \(L("分钟专注", "min focus")), \(status)")
+    }
+
+    private var lineLabel: some View {
+        HStack(spacing: 7) {
+            Text(String(format: "%02d", ticket.line.number)).font(.caption2.monospaced().weight(.semibold))
+                .foregroundStyle(MetroTheme.background).padding(.horizontal, 5).padding(.vertical, 4)
+                .background(ticket.line.color, in: RoundedRectangle(cornerRadius: 4))
+            Text(ticket.line.title).font(.caption.weight(.semibold)).foregroundStyle(MetroTheme.paperSecondary)
+        }
+    }
+    private var arrivalLabel: some View {
+        (Text(ticket.completedAt, format: .dateTime.hour().minute()) + Text(verbatim: " · " + ticket.kind.code))
+            .font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+    }
+    private var durationLabel: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            Text(minuteText(ticket.focusSeconds)).font(.system(size: minutesSize, weight: .medium)).monospacedDigit().tracking(-0.6)
+            Text(L("分钟专注", "min focus")).font(.caption2)
+        }
+    }
+    private var stateLabel: some View {
+        HStack(spacing: 5) {
+            Image(systemName: ticket.punchedAt == nil ? "ticket" : "checkmark")
+            Text(status)
+            Image(systemName: "arrow.right")
+        }.font(.caption2).foregroundStyle(MetroTheme.stampInk)
     }
 }
 

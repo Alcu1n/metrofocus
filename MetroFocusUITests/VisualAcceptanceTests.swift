@@ -16,12 +16,26 @@ final class VisualAcceptanceTests: XCTestCase {
         launch(language: "zh-Hans", scale: 1)
         let shuttle = app.buttons["service_shuttle"]
         let standard = app.buttons["service_standard"]
+        XCTAssertTrue(shuttle.waitForExistence(timeout: 5))
+        shuttle.tap() // Reset remembered custom service through the public UI.
         XCTAssertTrue(shuttle.isHittable, "The first service and its number must be visible without scrolling.")
         XCTAssertTrue(standard.isHittable, "The second service should be visible on the first screen.")
         XCTAssertTrue(shuttle.label.contains("15"))
         XCTAssertTrue(standard.label.contains("25"))
         XCTAssertLessThanOrEqual(shuttle.frame.maxY, app.buttons["departButton"].frame.minY)
+        let express = app.buttons["service_express"]
+        XCTAssertTrue(express.isHittable, "All three C service choices must be visible without horizontal scrolling.")
+        XCTAssertLessThanOrEqual(express.frame.maxY, app.buttons["departButton"].frame.minY)
+        XCTAssertLessThanOrEqual(express.frame.maxX, app.frame.maxX)
         capture("Chinese station – first-screen service selection")
+        tap("departButton")
+        XCTAssertTrue(app.staticTexts["destinationError"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["phaseStatus"].exists, "An empty task must not start a journey.")
+        let task = app.textFields["destinationField"]
+        task.typeText("写完第一章")
+        submitKeyboard(task)
+        XCTAssertFalse(app.staticTexts["destinationError"].exists, "Valid input clears the paper form error.")
+        capture("C station – populated paper form")
 
         tap("editRoute")
         capture("Route editor – standard form")
@@ -70,6 +84,11 @@ final class VisualAcceptanceTests: XCTestCase {
         // finish before capturing editorial screenshot evidence (0.25 s UI).
         RunLoop.current.run(until: Date().addingTimeInterval(0.4))
         capture("English station – accessibility XXXL service selection")
+        let summary = app.staticTexts["accessibleJourneySummary"]
+        reveal(summary, scrollingUp: true)
+        XCTAssertTrue(summary.exists)
+        XCTAssertTrue(summary.label.contains("15"), "Accessible paper still states total focus time before departure.")
+        capture("C station – accessibility XXXL total focus summary")
         let field = app.textFields["destinationField"]
         reveal(field, scrollingUp: false)
         field.tap()
@@ -92,6 +111,39 @@ final class VisualAcceptanceTests: XCTestCase {
         cancel.tap()
         tap("cancelConfirm")
         XCTAssertTrue(app.buttons["departButton"].waitForExistence(timeout: 5))
+    }
+
+    func testLargestDynamicTypeTicketWalletAndDetails() throws {
+        launch(language: "en", scale: 0.015, largeType: true)
+        let shuttle = app.buttons["service_shuttle"]
+        reveal(shuttle, scrollingUp: true)
+        shuttle.tap()
+        let field = app.textFields["destinationField"]
+        reveal(field, scrollingUp: false)
+        field.tap()
+        field.typeText("Keep this quiet hour")
+        submitKeyboard(field)
+        tap("departButton")
+        XCTAssertTrue(app.buttons["ticketPunch"].waitForExistence(timeout: 35))
+        capture("C ticket – accessibility XXXL arrival")
+        tap("ticketPunch")
+        XCTAssertTrue(app.staticTexts["punchedStamp"].waitForExistence(timeout: 5))
+        tap("ticketDone")
+        selectTab(["票夹", "Tickets"])
+        let row = ticketRows.firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        capture("C wallet – accessibility XXXL date grouping")
+        reveal(row, scrollingUp: true, withinViewport: true)
+        XCTAssertGreaterThanOrEqual(row.frame.minX, app.frame.minX)
+        XCTAssertLessThanOrEqual(row.frame.maxX, app.frame.maxX)
+        XCTAssertTrue(row.label.contains("Keep this quiet hour"))
+        XCTAssertTrue(row.label.contains("15"))
+        capture("C wallet – accessibility XXXL saved ticket")
+        row.tap()
+        XCTAssertTrue(app.staticTexts["punchedStamp"].waitForExistence(timeout: 5))
+        let savedTask = app.staticTexts["Keep this quiet hour"]
+        reveal(savedTask, scrollingUp: true, withinViewport: true)
+        capture("C saved ticket detail – accessibility XXXL")
     }
 
     func testBackgroundExpiryThenProcessRelaunchIssuesOneTicket() throws {
@@ -160,30 +212,47 @@ final class VisualAcceptanceTests: XCTestCase {
         tab.tap()
     }
 
-    private func reveal(_ element: XCUIElement, scrollingUp: Bool) {
+    private func reveal(_ element: XCUIElement, scrollingUp: Bool, withinViewport: Bool = false) {
         let content = app.scrollViews.firstMatch
         XCTAssertTrue(content.exists, "The content scroll view must be available before revealing an offscreen control.")
+        func visibleBottom() -> CGFloat {
+            let footer = app.buttons["departButton"].exists ? app.buttons["departButton"] : app.buttons["ticketDone"]
+            if footer.exists { return min(content.frame.maxY, footer.frame.minY - 8) }
+            if app.tabBars.firstMatch.exists { return min(content.frame.maxY, app.tabBars.firstMatch.frame.minY - 8) }
+            return content.frame.maxY
+        }
         func isReady() -> Bool {
-            guard element.isHittable else { return false }
+            guard element.exists, let snapshot = try? element.snapshot(), element.isHittable else { return false }
             // XCTest can report a service as hittable while its center is
             // still obscured by the fixed departure area. Require its actual
             // frame to be inside the visible content before asking it to tap.
-            guard element.identifier.hasPrefix("service_") || element.identifier == "destinationField" else { return true }
-            let frame = element.frame
-            let footer = app.buttons["departButton"].frame
-            let lowerEdge = min(content.frame.maxY, footer.minY - 8)
+            guard withinViewport || snapshot.identifier.hasPrefix("service_") || snapshot.identifier == "destinationField" else { return true }
+            let frame = snapshot.frame
+            let lowerEdge = visibleBottom()
             let upperEdge = max(content.frame.minY, 110)
             let visibleHeight = min(frame.maxY, lowerEdge) - max(frame.minY, upperEdge)
             return frame.midY >= upperEdge + 20 && frame.midY <= lowerEdge - 20
                 && visibleHeight >= min(frame.height, 100)
         }
-        for _ in 0..<8 where !isReady() {
-            let lowerContent = content.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.48))
-            let upperContent = content.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.20))
-            if scrollingUp { lowerContent.press(forDuration: 0.05, thenDragTo: upperContent) }
-            else { upperContent.press(forDuration: 0.05, thenDragTo: lowerContent) }
+        for _ in 0..<16 where !isReady() {
+            let scrollFrame = content.frame
+            let upperEdge = max(scrollFrame.minY, 110)
+            let lowerEdge = visibleBottom()
+            let viewportCenter = (upperEdge + lowerEdge) / 2
+            // Lazy containers may not expose an offscreen element yet. Use the
+            // requested direction until it exists, then follow its actual frame
+            // so returning to a field cannot overshoot it and keep going.
+            let targetFrame = element.exists ? (try? element.snapshot().frame) : nil
+            let delta = targetFrame.map { $0.midY - viewportCenter } ?? (scrollingUp ? 120.0 : -120.0)
+            let distance = min(max(abs(delta), 30), 120)
+            let signedDistance = delta >= 0 ? distance : -distance
+            let start = app.coordinate(withNormalizedOffset: .zero)
+                .withOffset(CGVector(dx: scrollFrame.midX, dy: viewportCenter + signedDistance / 2))
+            let end = app.coordinate(withNormalizedOffset: .zero)
+                .withOffset(CGVector(dx: scrollFrame.midX, dy: viewportCenter - signedDistance / 2))
+            start.press(forDuration: 0.1, thenDragTo: end, withVelocity: .slow, thenHoldForDuration: 0.1)
         }
-        XCTAssertTrue(isReady(), "The control must be visibly inside the scroll viewport, above fixed actions, before a tap: \(element.frame)")
+        XCTAssertTrue(isReady(), "The control must be visibly inside the scroll viewport, above fixed actions, before a tap: \(element.exists ? String(describing: try? element.snapshot().frame) : "not in the accessibility tree")")
     }
 
     private func submitKeyboard(_ field: XCUIElement) {

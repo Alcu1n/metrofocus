@@ -1,0 +1,35 @@
+{
+  "sourceIdentity": "91a870c4222a834a2cefd8deac0f365cf346abdcf27dc44d1d32051b84c32c04",
+  "results": [
+    {
+      "bundle": "c-station-native.xcresult",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "bundle": "c-journey-native.xcresult",
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "bundle": "c-small-final.xcresult",
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "bundle": "c-small-reading-final.xcresult",
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "bundle": "c-export-diagnostic.xcresult",
+      "passed": 1,
+      "failed": 0
+    }
+  ],
+  "releaseBuild": "c-release-final.log",
+  "buildOverride": "STRING_CATALOG_GENERATE_SYMBOLS=NO (pre-existing symbol collisions)",
+  "unresolvedObservation": "c-ticket-final.xcresult: one menu tap did not dismiss; same single-tap export passed with AX evidence in c-export-diagnostic.xcresult; cause unproven",
+  "png": "1350x1918; 2589300 opaque pixels; 0 transparent pixels",
+  "visualReview": "standard station, wallet, ticket and small-screen accessibility task/date screenshots reviewed independently"
+}

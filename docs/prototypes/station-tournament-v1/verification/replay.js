@@ -1,0 +1,93 @@
+async (page) => {
+  const base='http://127.0.0.1:8768/index.html';
+  const out='output/playwright/metrofocus-tournament';
+  const report={viewports:[],interactions:[],fonts:[],errors:[]};
+  page.on('pageerror',error=>report.errors.push(error.message));
+  const check=(ok,message)=>{if(!ok)throw new Error(message)};
+  for (const size of [{width:402,height:874},{width:375,height:667}]) {
+    await page.setViewportSize(size);
+    for (const lang of ['zh','en']) for (const variant of ['A','B','C']) {
+      await page.goto(`${base}?variant=${variant}&capture=1&lang=${lang}`);
+      const phone=page.locator(`.phone[data-variant="${variant}"]`);
+      const metrics=await phone.evaluate(p=>{
+        const screen=p.querySelector('.screen'),cta=p.querySelector('.depart');
+        const box=cta.getBoundingClientRect();
+        return {width:p.clientWidth,overflow:screen.scrollWidth>screen.clientWidth,scrollable:screen.scrollHeight>screen.clientHeight,ctaBottom:box.bottom,ctaHeight:box.height,smallTargets:[...p.querySelectorAll('button')].filter(b=>b.getBoundingClientRect().height<44).map(b=>b.className)};
+      });
+      check(!metrics.overflow,`${variant}/${lang} horizontal overflow`);
+      check(metrics.ctaBottom<size.height&&metrics.ctaHeight>=44,`${variant}/${lang} departure obscured`);
+      check(!metrics.smallTargets.length,`${variant}/${lang} undersized target`);
+      report.viewports.push({variant,lang,...size,...metrics});
+      if(size.width===375) {
+        await phone.locator('[data-task]').fill(lang==='en'?'Finish one small thing':'完成产品设计说明并整理下一轮迭代计划');
+      }
+      await page.screenshot({path:`${out}/${variant}-${lang}-${size.width}.png`});
+      if(size.width===402&&lang==='zh')await page.screenshot({path:`${out}/${variant}-zh.png`});
+      await phone.locator('.screen').evaluate(el=>el.scrollTop=el.scrollHeight);
+      check(await phone.locator('[data-service="2"]').isVisible(), 'Last service missing');
+    }
+  }
+  await page.setViewportSize({width:1400,height:1200});
+  await page.goto(base);
+  for (const variant of ['A','B','C']) {
+    await page.locator('#reset').click();
+    const phone=page.locator(`.phone[data-variant="${variant}"]`);
+    await phone.locator('[data-task]').fill('核验输入同步');
+    check((await page.locator('[data-task]').evaluateAll(ns=>ns.every(n=>n.value==='核验输入同步'))),'Input not shared');
+    await phone.locator('[data-line="1"]').click();
+    check(await page.locator('[data-line="1"][aria-pressed="true"]').count()===3,'Line not shared');
+    await phone.locator('[data-service="1"]').click();
+    check(await page.locator('[data-service="1"][aria-pressed="true"]').count()===3,'Service not shared');
+    check((await phone.locator('[data-summary]').innerText()).includes('100'),'Total incorrect');
+    await phone.locator('[data-action="depart"]').click();
+    check(await phone.locator('.sheet').isVisible(),'Departure preview absent');
+    check((await phone.locator('.sheet').innerText()).includes('不会启动实际计时'),'Preview disclaimer absent');
+    await page.keyboard.press('Escape');
+    check(await phone.locator('.sheet').count()===0,'Escape close failed');
+    await phone.locator('[data-task]').fill('');
+    await phone.locator('[data-action="depart"]').click();
+    check(await phone.locator('.task-error.show').count()===1&&await phone.locator('.sheet').count()===0,'Empty task accepted');
+    await phone.locator('[data-task]').fill('整理草稿');
+    await phone.locator('[data-action="route"]').click();
+    await phone.locator('#custom-min').fill('35');
+    await phone.locator('#custom-count').fill('3');
+    await phone.locator('[data-action="save-route"]').click();
+    check((await phone.locator('[data-summary]').innerText()).includes('105'),'Custom route total incorrect');
+    await phone.locator('[data-action="route"]').click();
+    await phone.locator('#custom-min').fill('40');
+    await page.keyboard.press('Escape');
+    check((await phone.locator('[data-summary]').innerText()).includes('105'),'Cancel mutated plan');
+    await phone.locator('[data-action="settings"]').click();
+    await phone.locator('[data-setting="sound"]').uncheck();
+    await phone.locator('[data-action="close-sheet"]').first().click();
+    await phone.locator('[data-action="settings"]').click();
+    check(!await phone.locator('[data-setting="sound"]').isChecked(),'Setting lost');
+    await page.keyboard.press('Escape');
+    report.interactions.push(`${variant}: shared input/line/service; total; departure preview; empty validation; custom save; cancel from input; settings`);
+  }
+  await page.locator('#references').click();
+  await page.locator('#current-reference').click();
+  await page.waitForFunction(()=>{const img=document.querySelector('#global-dialog img');return img?.complete&&img.naturalWidth>0});
+  check(await page.locator('#global-dialog img').evaluate(img=>img.complete&&img.naturalWidth>0),'Reference unavailable');
+  await page.keyboard.press('Escape');
+  await page.locator('#reset').click();
+  await page.locator('[data-view="single"]').click();
+  await page.locator('#next').click();
+  check((await page.locator('#current-variant').innerText()).startsWith('B'),'Next direction failed');
+  await page.locator('.entry.focused [data-task]').focus();
+  await page.keyboard.press('ArrowRight');
+  check((await page.locator('#current-variant').innerText()).startsWith('B'),'Editing input switches direction');
+  await page.locator('#switch-all').click();
+  await page.locator('#reset').click();
+  const client=await page.context().newCDPSession(page);
+  await client.send('DOM.enable');await client.send('CSS.enable');
+  const {root}=await client.send('DOM.getDocument');
+  for (const selector of ['.variant-a h1','.variant-a .service-num']) {
+    const {nodeId}=await client.send('DOM.querySelector',{nodeId:root.nodeId,selector});
+    report.fonts.push({selector,...await client.send('CSS.getPlatformFontsForNode',{nodeId})});
+  }
+  report.interactions.push('Reference dialog, original screenshot, variant switch, arrow key input isolation');
+  check(report.errors.length===0,report.errors.join('\n'));
+  await page.evaluate(r=>window.__verification=r,report);
+  await page.screenshot({path:`${out}/board-final.png`,fullPage:true});
+}

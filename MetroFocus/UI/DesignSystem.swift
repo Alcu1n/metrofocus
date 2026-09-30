@@ -14,6 +14,11 @@ enum MetroTheme {
     static let dim = Color(hex: 0x627174)
     static let paper = Color(hex: 0xEDE7D5)
     static let paperInk = Color(hex: 0x23362D)
+    static let paperSecondary = Color(hex: 0x52634E)
+    static let paperRule = Color(hex: 0xBCC2AD)
+    static let paperPerforation = Color(hex: 0x78876F)
+    static let stampInk = Color(hex: 0x416249)
+    static let paperError = Color(hex: 0x972B3F)
     static let amber = Color(hex: 0xE5BF59)
 }
 
@@ -117,13 +122,14 @@ struct LineBadge: View {
 struct MetroButtonStyle: ButtonStyle {
     var tint: Color = MetroTheme.ink
     var foreground: Color = MetroTheme.background
+    var cornerRadius: CGFloat = 17
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.headline)
             .foregroundStyle(foreground)
             .frame(maxWidth: .infinity, minHeight: 56)
-            .background(tint, in: RoundedRectangle(cornerRadius: 17))
-            .contentShape(RoundedRectangle(cornerRadius: 17))
+            .background(tint, in: RoundedRectangle(cornerRadius: cornerRadius))
+            .contentShape(RoundedRectangle(cornerRadius: cornerRadius))
             .opacity(configuration.isPressed ? 0.78 : 1)
             .scaleEffect(configuration.isPressed ? 0.985 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)

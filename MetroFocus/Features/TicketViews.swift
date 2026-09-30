@@ -4,10 +4,11 @@ import UIKit
 struct TicketSilhouette: Shape {
     var punched: Bool
     var tearY: CGFloat? = nil
+    var notchRadius: CGFloat = 9.5
     func path(in rect: CGRect) -> Path {
         var path = Path(roundedRect: rect, cornerRadius: 13)
         for x in [rect.minX, rect.maxX] {
-            path.addEllipse(in: CGRect(x: x - 12, y: (tearY ?? rect.height * 0.5) - 12, width: 24, height: 24))
+            path.addEllipse(in: CGRect(x: x - notchRadius, y: (tearY ?? rect.height * 0.5) - notchRadius, width: notchRadius * 2, height: notchRadius * 2))
         }
         if punched { path.addEllipse(in: CGRect(x: rect.maxX - 37, y: 19, width: 14, height: 14)) }
         return path
@@ -21,89 +22,109 @@ struct TicketTearPreference: PreferenceKey {
 
 struct TicketFace: View {
     let ticket: Ticket
+    @Environment(\.dynamicTypeSize) private var typeSize
+    @ScaledMetric(relativeTo: .title2) private var taskSize = 24
+    @ScaledMetric(relativeTo: .title3) private var timeSize = 23
+    @ScaledMetric(relativeTo: .largeTitle) private var focusSize = 48
+    private var tailLayout: AnyLayout {
+        typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16)) : AnyLayout(HStackLayout(alignment: .center, spacing: 12))
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack(alignment: .top) {
-                MetroMark(color: MetroTheme.paperInk).scaleEffect(0.85).frame(width: 25, height: 27)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("METROFOCUS").font(.system(.caption, design: .rounded, weight: .black)).tracking(1.5)
-                    Text("PERSONAL TRANSIT AUTHORITY").font(.system(size: 7.5, weight: .medium, design: .monospaced)).tracking(0.7)
+            ViewThatFits(in: .horizontal) {
+                HStack { Text(verbatim: "METROFOCUS"); Spacer(minLength: 12); reference.fixedSize() }
+                VStack(alignment: .leading, spacing: 6) { Text(verbatim: "METROFOCUS"); reference }
+            }
+            .font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+            .padding(.trailing, ticket.punchedAt == nil ? 0 : 22)
+            .padding(.bottom, 13)
+            TransitDivider(color: MetroTheme.paperRule).accessibilityHidden(true)
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) { lineLabel.fixedSize(); Spacer(minLength: 8); serviceCode.fixedSize() }
+                VStack(alignment: .leading, spacing: 6) { lineLabel; serviceCode }
+            }.padding(.top, 16)
+            Text(ticket.task).font(.system(size: taskSize, weight: .semibold)).tracking(-0.3)
+                .fixedSize(horizontal: false, vertical: true).padding(.top, 13).padding(.bottom, 23)
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    timeColumn(L("出发", "DEPARTURE"), date: ticket.startedAt, alignment: .leading).fixedSize()
+                    Spacer(minLength: 8)
+                    Image(systemName: "arrow.right").foregroundStyle(MetroTheme.paperSecondary).accessibilityHidden(true)
+                    Spacer(minLength: 8)
+                    timeColumn(L("抵达", "ARRIVAL"), date: ticket.completedAt, alignment: .trailing).fixedSize()
                 }
-                Spacer(minLength: 20)
-            }.padding(.bottom, 22)
-            HStack {
-                Text(String(format: "%02d", ticket.line.number)).font(.system(.caption, design: .rounded, weight: .black))
-                    .padding(.horizontal, 8).padding(.vertical, 4).background(ticket.line.color, in: RoundedRectangle(cornerRadius: 4)).foregroundStyle(MetroTheme.paperInk)
-                Text(ticket.line.title).font(.caption.weight(.bold))
-                Spacer()
-                Text(ticket.kind.code).font(.system(.caption2, design: .monospaced, weight: .medium))
-            }.padding(.bottom, 12)
-            Text(ticket.task).font(.system(.title2, design: .default, weight: .bold)).lineLimit(2).fixedSize(horizontal: false, vertical: true).padding(.bottom, 19)
-            HStack {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(L("出发", "DEPARTURE")).font(.system(.caption2, design: .monospaced)).opacity(0.65)
-                    Text(ticket.startedAt, format: .dateTime.hour().minute()).font(.title3.weight(.semibold).monospacedDigit())
-                }
-                Spacer()
-                Image(systemName: "arrow.right").font(.title3).opacity(0.5)
-                Spacer()
-                VStack(alignment: .trailing, spacing: 5) {
-                    Text(L("抵达", "ARRIVAL")).font(.system(.caption2, design: .monospaced)).opacity(0.65)
-                    Text(ticket.completedAt, format: .dateTime.hour().minute()).font(.title3.weight(.semibold).monospacedDigit())
+                VStack(alignment: .leading, spacing: 16) {
+                    timeColumn(L("出发", "DEPARTURE"), date: ticket.startedAt, alignment: .leading)
+                    timeColumn(L("抵达", "ARRIVAL"), date: ticket.completedAt, alignment: .leading)
                 }
             }
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(minuteText(ticket.focusSeconds)).font(.system(size: 57, weight: .bold, design: .rounded)).tracking(-2).monospacedDigit()
-                Text(L("分钟专注", "MIN OF FOCUS")).font(.system(.caption2, design: .monospaced, weight: .medium))
-                Spacer()
-            }.padding(.top, 17).padding(.bottom, 15)
-            DashedRule().stroke(MetroTheme.paperInk.opacity(0.28), style: StrokeStyle(lineWidth: 1, dash: [3, 4])).frame(height: 1)
-                .padding(.horizontal, -10)
-                .anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
-            HStack(alignment: .center) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline, spacing: 7) { focusNumber.fixedSize(); focusCaption.fixedSize(); Spacer(minLength: 0) }
+                VStack(alignment: .leading, spacing: 7) { focusNumber; focusCaption }
+            }.padding(.top, 24).padding(.bottom, 16)
+            DashedRule().stroke(MetroTheme.paperPerforation, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                .frame(height: 1).anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
+                .accessibilityHidden(true)
+            tailLayout {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(ticket.completedAt, format: .dateTime.year().month(.twoDigits).day(.twoDigits))
-                        .font(.system(.caption, design: .monospaced, weight: .medium))
+                        .font(.caption.monospaced().weight(.semibold))
                     Text(String(format: ticket.segmentCount == 1 ? L("%d 站 · 单程通行", "%d STOP · ONE WAY") : L("%d 站 · 单程通行", "%d STOPS · ONE WAY"), ticket.segmentCount))
-                        .font(.system(.caption2, design: .monospaced)).opacity(0.7)
+                        .font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
                     Text(ticket.punchedAt == nil ? L("长按打孔，收藏这一程", "PUNCH TO KEEP THIS JOURNEY") : L("你的每一分钟，都算数。", "EVERY MINUTE MATTERS."))
-                        .font(.system(size: 9, weight: .medium, design: .monospaced)).padding(.top, 2)
+                        .font(.caption2).foregroundStyle(MetroTheme.paperSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
-                Spacer(minLength: 8)
-                VStack(spacing: 3) {
-                    Text(verbatim: ticket.punchedAt == nil ? "ARRIVED" : "VALIDATED").font(.system(size: 11, weight: .black, design: .monospaced)).tracking(0.7)
-                    Text(ticket.punchedAt == nil ? L("已到站", "COMPLETE") : L("已验票", "PUNCHED")).font(.system(.caption2, design: .monospaced, weight: .bold))
-                }.foregroundStyle(Color(hex: 0x306B51)).padding(.horizontal, 9).padding(.vertical, 12)
-                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(hex: 0x306B51).opacity(0.8), lineWidth: 2))
-                    .rotationEffect(.degrees(-9))
-                    .accessibilityIdentifier(ticket.punchedAt == nil ? "arrivalStamp" : "punchedStamp")
-            }.padding(.vertical, 22)
-            BarcodeArtwork(seed: ticket.id.uuidString).frame(height: 29)
+                if !typeSize.isAccessibilitySize { Spacer(minLength: 0) }
+                stamp.fixedSize()
+            }.padding(.top, 15).padding(.bottom, 18)
+            BarcodeArtwork(seed: ticket.id.uuidString).frame(height: 25)
             HStack {
-                Text("MF-" + ticket.id.uuidString.prefix(8)).font(.system(size: 8, weight: .medium, design: .monospaced)).tracking(1.7)
-                Spacer()
-                Text("KEEP GOING.").font(.system(size: 8, weight: .medium, design: .monospaced)).tracking(1)
-            }.padding(.top, 5)
+                Text(verbatim: "MF-" + ticket.id.uuidString.prefix(8))
+                Spacer(minLength: 8)
+                Text(verbatim: "KEEP GOING.")
+            }.font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+                .padding(.top, 6).accessibilityHidden(true)
         }
-        .padding(25)
+        .padding(21)
         .foregroundStyle(MetroTheme.paperInk)
         .backgroundPreferenceValue(TicketTearPreference.self) { tearAnchor in
             GeometryReader { geometry in
-            ZStack {
-                MetroTheme.paper
-                Canvas { context, size in
-                    for i in 0..<1600 {
-                        let x = CGFloat((i * 79 + 13) % 997) / 997 * size.width
-                        let y = CGFloat((i * 137 + 71) % 991) / 991 * size.height
-                        context.fill(Path(ellipseIn: CGRect(x: x, y: y, width: i % 3 == 0 ? 1.1 : 0.6, height: 0.7)), with: .color(MetroTheme.paperInk.opacity(0.11)))
-                    }
-                }
-                VStack { Rectangle().fill(.white.opacity(0.4)).frame(height: 1); Spacer(); Rectangle().fill(.black.opacity(0.1)).frame(height: 2) }
-            }
-            .mask(TicketSilhouette(punched: ticket.punchedAt != nil, tearY: tearAnchor.map { geometry[$0].midY }).fill(style: FillStyle(eoFill: true)))
+                MetroTheme.paper.mask(TicketSilhouette(punched: ticket.punchedAt != nil, tearY: tearAnchor.map { geometry[$0].midY }).fill(style: FillStyle(eoFill: true)))
             }
         }
         .accessibilityElement(children: .contain)
+    }
+
+    private var reference: some View { Text(verbatim: "MF / " + ticket.id.uuidString.prefix(8)) }
+    private var lineLabel: some View {
+        HStack(spacing: 7) {
+            Text(String(format: "%02d", ticket.line.number)).font(.caption2.monospaced().weight(.semibold))
+                .foregroundStyle(MetroTheme.background).padding(.horizontal, 5).padding(.vertical, 4)
+                .background(ticket.line.color, in: RoundedRectangle(cornerRadius: 4))
+            Text(ticket.line.title).font(.caption.weight(.semibold))
+        }
+    }
+    private var serviceCode: some View { Text(verbatim: ticket.kind.code).font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary) }
+    private var focusNumber: some View {
+        Text(minuteText(ticket.focusSeconds)).font(.system(size: focusSize, weight: .medium)).monospacedDigit().tracking(-1.2)
+    }
+    private var focusCaption: some View { Text(L("分钟专注", "MIN OF FOCUS")).font(.caption2).foregroundStyle(MetroTheme.paperSecondary) }
+    private func timeColumn(_ title: String, date: Date, alignment: HorizontalAlignment) -> some View {
+        VStack(alignment: alignment, spacing: 4) {
+            Text(title).font(.caption2).foregroundStyle(MetroTheme.paperSecondary)
+            Text(date, format: .dateTime.hour().minute()).font(.system(size: timeSize, weight: .medium)).monospacedDigit()
+        }
+    }
+    private var stamp: some View {
+        VStack(spacing: 3) {
+            Text(verbatim: ticket.punchedAt == nil ? "ARRIVED" : "VALIDATED").font(.caption2.monospaced().weight(.semibold))
+            Text(ticket.punchedAt == nil ? L("已到站", "COMPLETE") : L("已验票", "PUNCHED")).font(.caption2.weight(.semibold))
+        }.foregroundStyle(MetroTheme.stampInk).padding(.horizontal, 7).padding(.vertical, 5)
+            .overlay(RoundedRectangle(cornerRadius: 3).stroke(MetroTheme.stampInk, lineWidth: 1))
+            .rotationEffect(.degrees(-7))
+            .accessibilityIdentifier(ticket.punchedAt == nil ? "arrivalStamp" : "punchedStamp")
     }
 }
 
@@ -171,7 +192,8 @@ struct TicketDetailView: View {
                             Capsule().fill(.black).frame(height: 7).padding(.horizontal, -9).overlay(alignment: .top) { Capsule().fill(MetroTheme.dim.opacity(0.4)).frame(height: 1).padding(.horizontal, -9) }.opacity(inserted ? 0 : 1)
                         }
                         TicketFace(ticket: ticket)
-                            .shadow(color: .black.opacity(0.35), radius: 18, x: 0, y: 14)
+                            .compositingGroup()
+                            .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 6)
                             .rotation3DEffect(.degrees(reduceMotion ? 0 : motion.pitch * 6), axis: (x: 1, y: 0, z: 0))
                             .rotation3DEffect(.degrees(reduceMotion ? 0 : motion.roll * 6), axis: (x: 0, y: 1, z: 0))
                             .overlay(alignment: .topLeading) {
@@ -199,16 +221,16 @@ struct TicketDetailView: View {
                 if ticket.punchedAt == nil {
                     Button { punch() } label: {
                         Label(L("打孔，收藏这一程", "Punch & keep this journey"), systemImage: "circle.dotted.circle.fill")
-                    }.buttonStyle(MetroButtonStyle(tint: ticket.line.color)).accessibilityIdentifier("ticketPunch")
+                    }.buttonStyle(MetroButtonStyle(tint: MetroTheme.paper, foreground: MetroTheme.paperInk, cornerRadius: 10)).accessibilityIdentifier("ticketPunch")
                     Text(L("也可以长按车票打孔", "Or press and hold your ticket")).font(.caption).foregroundStyle(MetroTheme.muted)
                 } else {
                     Button { finish() } label: {
                         HStack(spacing: 12) { Image(systemName: "checkmark"); Text(L("收入票夹", "Keep in ticket wallet")) }
                     }
-                        .buttonStyle(MetroButtonStyle(tint: ticket.line.color)).accessibilityIdentifier("ticketDone")
+                        .buttonStyle(MetroButtonStyle(tint: MetroTheme.paper, foreground: MetroTheme.paperInk, cornerRadius: 10)).accessibilityIdentifier("ticketDone")
                 }
                 if isArrival {
-                    Button { showsRelaxation = true } label: { Text(L("再休息一会儿", "Take a little break")).font(.subheadline).frame(minHeight: 42) }.foregroundStyle(MetroTheme.muted)
+                    Button { showsRelaxation = true } label: { Text(L("再休息一会儿", "Take a little break")).font(.subheadline).frame(minHeight: 44) }.foregroundStyle(MetroTheme.muted)
                 }
             }.padding(.horizontal, 26).padding(.top, 12).padding(.bottom, 12)
             if let error = app.engine.errorMessage {

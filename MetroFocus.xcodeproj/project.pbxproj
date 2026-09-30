@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,7 +33,7 @@
 		934B0891E030F7FF8715407F /* JourneyEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A411FDCBF64728B219E1C2F /* JourneyEngine.swift */; };
 		9C85AFE363B85A583727576B /* TransitActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A064BE8793CF688F9007ADCC /* TransitActivityAttributes.swift */; };
 		9EED27C76033430D22211209 /* TransitActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A064BE8793CF688F9007ADCC /* TransitActivityAttributes.swift */; };
-		A8E0E6615AC62EBC6BE5DF92 /* MetroFocusLiveActivity.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8BCD37026A33517565B099A6 /* MetroFocusLiveActivity.appex */; };
+		A8E0E6615AC62EBC6BE5DF92 /* MetroFocusLiveActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8BCD37026A33517565B099A6 /* MetroFocusLiveActivity.appex */; };
 		B431DD367D33E7D4CE0D943C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F44A899A9BBD063AEA2CA7E /* AppModel.swift */; };
 		C1C05FFD83D6F5423A081862 /* SensoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF696F59FFA9880EF0FAEFF /* SensoryService.swift */; };
 		CBD8A2E835D4B152A13ECF35 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB69E7BEEDDE067D08F575F7 /* Foundation.framework */; };
@@ -74,15 +74,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		51673442047A367CD3D9BAAB /* Embed App Extensions */ = {
+		51673442047A367CD3D9BAAB /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A8E0E6615AC62EBC6BE5DF92 /* MetroFocusLiveActivity.appex in Embed App Extensions */,
+				A8E0E6615AC62EBC6BE5DF92 /* MetroFocusLiveActivity.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -320,7 +320,7 @@
 				5F90EA7AC61607500F26FBBE /* Sources */,
 				D89197166DB5070B2F26E9C4 /* Frameworks */,
 				DA1E3A7967ECDD2D1625A4E1 /* Resources */,
-				51673442047A367CD3D9BAAB /* Embed App Extensions */,
+				51673442047A367CD3D9BAAB /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -356,23 +356,9 @@
 		7B0EF8FE72CAB7631655126D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 2700;
-				TargetAttributes = {
-					3B69951A2EAD8EB09B018B3D = {
-						ProvisioningStyle = Automatic;
-					};
-					73E1C811ABBEF842995FA5C3 = {
-						ProvisioningStyle = Automatic;
-					};
-					79CCA19DDD76FC38AC93AB86 = {
-						DevelopmentTeam = RZD9M68FZ9;
-						ProvisioningStyle = Automatic;
-					};
-					ACD83C4A511465F179E3335C = {
-						ProvisioningStyle = Automatic;
-					};
-				};
 			};
 			buildConfigurationList = A6AEB585D70E10F93B3E3C5F /* Build configuration list for PBXProject "MetroFocus" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -519,6 +505,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -549,6 +536,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -563,7 +551,9 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -575,6 +565,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RZD9M68FZ9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MetroFocusLiveActivity/Info.plist;
@@ -612,7 +603,10 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.app;
 				SDKROOT = iphoneos;
@@ -692,7 +686,10 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.app;
 				SDKROOT = iphoneos;
@@ -710,6 +707,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -740,6 +738,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -761,6 +760,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -798,6 +798,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RZD9M68FZ9;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MetroFocusLiveActivity/Info.plist;
