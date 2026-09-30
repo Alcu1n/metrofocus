@@ -92,26 +92,26 @@ struct StationView: View {
         @Bindable var draft = app.draft
         return VStack(alignment: .leading, spacing: 0) {
             Text(L("个人通行凭证", "PERSONAL TRANSIT PASS"))
-                .font(.caption.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+                .font(.caption.monospaced()).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                 .padding(.bottom, 13)
             TransitDivider(color: MetroTheme.paperRule).padding(.bottom, 17)
             adaptiveRow {
                 HStack(spacing: 7) {
                     LineBadge(line: draft.line, compact: true)
-                    Text(draft.line.title).font(.caption.weight(.semibold))
+                    Text(draft.line.title).font(.caption.weight(.semibold)).ticketImprint(depth: 0.55)
                 }
                 HStack(spacing: 8) {
                     Text("·").accessibilityHidden(true)
                     Text(L("此刻", "Here & now"))
                     Image(systemName: "arrow.right").accessibilityHidden(true)
-                }.font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+                }.font(.caption).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
             }.padding(.bottom, 13)
             Text(L("这一程，想完成什么？", "WHAT WILL YOU FINISH?"))
-                .font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+                .font(.caption).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
             HStack(spacing: 4) {
                 TextField(L("想专注完成什么？", "What are you working on?"), text: $draft.task,
                           prompt: Text(L("想专注完成什么？", "What are you working on?")).foregroundStyle(MetroTheme.paperSecondary))
-                    .font(.system(size: taskSize, weight: .semibold)).tint(draft.line.color)
+                    .font(.system(size: taskSize, weight: .semibold)).ticketImprint().tint(draft.line.color)
                     .focused($destinationFocused).submitLabel(.done).frame(minHeight: 44)
                     .onSubmit { destinationFocused = false }
                     .accessibilityIdentifier("destinationField")
@@ -124,7 +124,7 @@ struct StationView: View {
                     else { draft.task = ""; destinationFocused = true }
                 } label: {
                     Image(systemName: draft.task.isEmpty ? "pencil" : "xmark.circle")
-                        .font(.body).foregroundStyle(MetroTheme.paperSecondary).frame(width: 44, height: 44)
+                        .font(.body).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5).frame(width: 44, height: 44)
                 }.accessibilityLabel(draft.task.isEmpty ? L("编辑任务名称", "Edit task name") : L("清空任务名称", "Clear task name"))
             }.padding(.top, 3).padding(.bottom, 13)
             if showsTaskError {
@@ -134,12 +134,12 @@ struct StationView: View {
             }
             TransitDivider(color: MetroTheme.paperRule)
             adaptiveRow {
-                Text(L("选择班次", "Choose your service")).font(.caption.weight(.semibold))
+                Text(L("选择班次", "Choose your service")).font(.caption.weight(.semibold)).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                 if !typeSize.isAccessibilitySize { Spacer() }
                 Button { destinationFocused = false; showsEditor = true } label: {
                     Label(L("编排", "Edit route"), systemImage: "slider.horizontal.3")
                         .font(.caption).frame(minHeight: 44)
-                }.foregroundStyle(MetroTheme.paperSecondary).accessibilityIdentifier("editRoute")
+                }.ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5).accessibilityIdentifier("editRoute")
             }.foregroundStyle(MetroTheme.paperSecondary).padding(.top, 8).padding(.bottom, 6)
             LazyVGrid(columns: serviceColumns, spacing: 7) {
                 serviceCard(.shuttle, minutes: 15, segments: 1)
@@ -152,14 +152,14 @@ struct StationView: View {
                 .anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
             adaptiveRow {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(draft.kind.title).font(.subheadline.weight(.semibold))
+                    Text(draft.kind.title).font(.subheadline.weight(.semibold)).ticketImprint(depth: 0.6)
                     Text(String(format: draft.segmentCount == 1 ? L("%d 分钟 × %d 段", "%d min × %d stop") : L("%d 分钟 × %d 段", "%d min × %d stops"), draft.focusMinutes, draft.segmentCount))
-                        .font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+                        .font(.caption).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                     if typeSize.isAccessibilitySize {
-                        Text(journeySummary).font(.caption.weight(.semibold))
+                        Text(journeySummary).font(.caption.weight(.semibold)).ticketImprint(depth: 0.5)
                             .accessibilityIdentifier("accessibleJourneySummary")
                         Text(L("30 秒候车准备", "30-second boarding"))
-                            .font(.caption).foregroundStyle(MetroTheme.paperSecondary)
+                            .font(.caption).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                     }
                 }
                 if !typeSize.isAccessibilitySize { Spacer(minLength: 8) }
@@ -167,7 +167,7 @@ struct StationView: View {
                     Text(L("尚未发车", "NOT YET BOARDED"))
                     Text("READY WHEN YOU ARE")
                 }.font(.system(.caption2, design: .monospaced, weight: .semibold))
-                    .foregroundStyle(MetroTheme.stampInk).multilineTextAlignment(.center)
+                    .ticketImprint(ink: MetroTheme.stampInk, depth: 0.5).multilineTextAlignment(.center)
                     .padding(.horizontal, 7).padding(.vertical, 6)
                     .overlay(RoundedRectangle(cornerRadius: 3).stroke(MetroTheme.stampInk, lineWidth: 1))
                     .rotationEffect(.degrees(-6))
@@ -240,7 +240,7 @@ struct StationView: View {
                 Text(kind.title + " ×\(segments)").font(.caption2.weight(.semibold))
                     .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
             }.frame(maxWidth: .infinity, minHeight: 74).padding(.horizontal, 3).padding(.vertical, 8)
-                .foregroundStyle(selected ? MetroTheme.paper : MetroTheme.paperInk)
+                .ticketImprint(ink: selected ? MetroTheme.paper : MetroTheme.paperInk, depth: selected ? 0.3 : 0.65)
                 .background(selected ? MetroTheme.paperInk : .clear, in: RoundedRectangle(cornerRadius: 7))
                 .overlay(RoundedRectangle(cornerRadius: 7).stroke(selected ? MetroTheme.paperInk : MetroTheme.paperRule, lineWidth: 1))
                 .contentShape(RoundedRectangle(cornerRadius: 7))

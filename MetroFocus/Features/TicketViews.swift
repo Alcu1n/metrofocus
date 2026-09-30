@@ -54,15 +54,19 @@ struct TicketPaper: View {
 
 /// Dark upper recess and a lower paper lip suggest ink pressed into stock.
 private struct TicketImprint: ViewModifier {
+    var ink: Color
+    var depth: CGFloat
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(MetroTheme.paperInk.shadow(.inner(color: .black.opacity(0.45), radius: 0.4, x: 0, y: 0.55)))
-            .shadow(color: .white.opacity(0.7), radius: 0.15, x: 0, y: 0.65)
+            .foregroundStyle(ink.shadow(.inner(color: .black.opacity(0.6), radius: depth * 0.5, x: 0, y: depth * 0.7)))
+            .shadow(color: .white.opacity(0.8), radius: 0.15, x: 0, y: depth)
     }
 }
 
 extension View {
-    func ticketImprint() -> some View { modifier(TicketImprint()) }
+    func ticketImprint(ink: Color = MetroTheme.paperInk, depth: CGFloat = 0.9) -> some View {
+        modifier(TicketImprint(ink: ink, depth: depth))
+    }
 }
 
 struct TicketPerforation: View {
@@ -96,7 +100,7 @@ struct TicketFace: View {
                 HStack { Text(verbatim: "METROFOCUS"); Spacer(minLength: 12); reference.fixedSize() }
                 VStack(alignment: .leading, spacing: 6) { Text(verbatim: "METROFOCUS"); reference }
             }
-            .font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+            .font(.caption2.monospaced()).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
             .padding(.trailing, ticket.punchedAt == nil ? 0 : 22)
             .padding(.bottom, 13)
             TransitDivider(color: MetroTheme.paperRule).accessibilityHidden(true)
@@ -110,7 +114,7 @@ struct TicketFace: View {
                 HStack {
                     timeColumn(L("出发", "DEPARTURE"), date: ticket.startedAt, alignment: .leading).fixedSize()
                     Spacer(minLength: 8)
-                    Image(systemName: "arrow.right").foregroundStyle(MetroTheme.paperSecondary).accessibilityHidden(true)
+                    Image(systemName: "arrow.right").ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5).accessibilityHidden(true)
                     Spacer(minLength: 8)
                     timeColumn(L("抵达", "ARRIVAL"), date: ticket.completedAt, alignment: .trailing).fixedSize()
                 }
@@ -129,11 +133,11 @@ struct TicketFace: View {
             tailLayout {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(ticket.completedAt, format: .dateTime.year().month(.twoDigits).day(.twoDigits))
-                        .font(.caption.monospaced().weight(.semibold))
+                        .font(.caption.monospaced().weight(.semibold)).ticketImprint(depth: 0.6)
                     Text(String(format: ticket.segmentCount == 1 ? L("%d 站 · 单程通行", "%d STOP · ONE WAY") : L("%d 站 · 单程通行", "%d STOPS · ONE WAY"), ticket.segmentCount))
-                        .font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+                        .font(.caption2.monospaced()).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                     Text(ticket.punchedAt == nil ? L("长按打孔，收藏这一程", "PUNCH TO KEEP THIS JOURNEY") : L("你的每一分钟，都算数。", "EVERY MINUTE MATTERS."))
-                        .font(.caption2).foregroundStyle(MetroTheme.paperSecondary)
+                        .font(.caption2).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 if !typeSize.isAccessibilitySize { Spacer(minLength: 0) }
@@ -144,7 +148,7 @@ struct TicketFace: View {
                 Text(verbatim: "MF-" + ticket.id.uuidString.prefix(8))
                 Spacer(minLength: 8)
                 Text(verbatim: "KEEP GOING.")
-            }.font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+            }.font(.caption2.monospaced()).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
                 .padding(.top, 6).accessibilityHidden(true)
         }
         .padding(21)
@@ -161,19 +165,19 @@ struct TicketFace: View {
     private var lineLabel: some View {
         HStack(spacing: 7) {
             Text(String(format: "%02d", ticket.line.number)).font(.caption2.monospaced().weight(.semibold))
-                .foregroundStyle(MetroTheme.background).padding(.horizontal, 5).padding(.vertical, 4)
+                .ticketImprint(ink: MetroTheme.background, depth: 0.45).padding(.horizontal, 5).padding(.vertical, 4)
                 .background(ticket.line.color, in: RoundedRectangle(cornerRadius: 4))
-            Text(ticket.line.title).font(.caption.weight(.semibold))
+            Text(ticket.line.title).font(.caption.weight(.semibold)).ticketImprint(depth: 0.55)
         }
     }
-    private var serviceCode: some View { Text(verbatim: ticket.kind.code).font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary) }
+    private var serviceCode: some View { Text(verbatim: ticket.kind.code).font(.caption2.monospaced()).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5) }
     private var focusNumber: some View {
         Text(minuteText(ticket.focusSeconds)).font(.system(size: focusSize, weight: .medium)).monospacedDigit().tracking(-1.2).ticketImprint()
     }
-    private var focusCaption: some View { Text(L("分钟专注", "MIN OF FOCUS")).font(.caption2).foregroundStyle(MetroTheme.paperSecondary) }
+    private var focusCaption: some View { Text(L("分钟专注", "MIN OF FOCUS")).font(.caption2).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5) }
     private func timeColumn(_ title: String, date: Date, alignment: HorizontalAlignment) -> some View {
         VStack(alignment: alignment, spacing: 4) {
-            Text(title).font(.caption2).foregroundStyle(MetroTheme.paperSecondary)
+            Text(title).font(.caption2).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
             Text(date, format: .dateTime.hour().minute()).font(.system(size: timeSize, weight: .medium)).monospacedDigit().ticketImprint()
         }
     }
@@ -181,7 +185,7 @@ struct TicketFace: View {
         VStack(spacing: 3) {
             Text(verbatim: ticket.punchedAt == nil ? "ARRIVED" : "VALIDATED").font(.caption2.monospaced().weight(.semibold))
             Text(ticket.punchedAt == nil ? L("已到站", "COMPLETE") : L("已验票", "PUNCHED")).font(.caption2.weight(.semibold))
-        }.foregroundStyle(MetroTheme.stampInk).padding(.horizontal, 7).padding(.vertical, 5)
+        }.ticketImprint(ink: MetroTheme.stampInk, depth: 0.5).padding(.horizontal, 7).padding(.vertical, 5)
             .overlay(RoundedRectangle(cornerRadius: 3).stroke(MetroTheme.stampInk, lineWidth: 1))
             .rotationEffect(.degrees(-7))
             .accessibilityIdentifier(ticket.punchedAt == nil ? "arrivalStamp" : "punchedStamp")

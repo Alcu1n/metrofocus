@@ -132,19 +132,19 @@ struct TicketRow: View {
     private var lineLabel: some View {
         HStack(spacing: 7) {
             Text(String(format: "%02d", ticket.line.number)).font(.caption2.monospaced().weight(.semibold))
-                .foregroundStyle(MetroTheme.background).padding(.horizontal, 5).padding(.vertical, 4)
+                .ticketImprint(ink: MetroTheme.background, depth: 0.45).padding(.horizontal, 5).padding(.vertical, 4)
                 .background(ticket.line.color, in: RoundedRectangle(cornerRadius: 4))
-            Text(ticket.line.title).font(.caption.weight(.semibold)).foregroundStyle(MetroTheme.paperSecondary)
+            Text(ticket.line.title).font(.caption.weight(.semibold)).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
         }
     }
     private var arrivalLabel: some View {
         (Text(ticket.completedAt, format: .dateTime.hour().minute()) + Text(verbatim: " · " + ticket.kind.code))
-            .font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary)
+            .font(.caption2.monospaced()).ticketImprint(ink: MetroTheme.paperSecondary, depth: 0.5)
     }
     private var durationLabel: some View {
         HStack(alignment: .firstTextBaseline, spacing: 4) {
             Text(minuteText(ticket.focusSeconds)).font(.system(size: minutesSize, weight: .medium)).monospacedDigit().tracking(-0.6).ticketImprint()
-            Text(L("分钟专注", "min focus")).font(.caption2)
+            Text(L("分钟专注", "min focus")).font(.caption2).ticketImprint(depth: 0.5)
         }
     }
     private var stateLabel: some View {
@@ -152,7 +152,7 @@ struct TicketRow: View {
             Image(systemName: ticket.punchedAt == nil ? "ticket" : "checkmark")
             Text(status)
             Image(systemName: "arrow.right")
-        }.font(.caption2).foregroundStyle(MetroTheme.stampInk)
+        }.font(.caption2).ticketImprint(ink: MetroTheme.stampInk, depth: 0.5)
     }
 }
 

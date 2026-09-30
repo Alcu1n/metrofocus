@@ -1,0 +1,3 @@
+Same as letterpress-type-source-sha256.txt except the file below.
+Apply the heading imprint once per label, avoiding a second enclosing shadow.
+56f742bbc06fb158a7dfb3d93dc62062ce6829ca04a0bee0623915d99ac75ecf  MetroFocus/Features/StationView.swift
