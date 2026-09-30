@@ -1,0 +1,68 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "1F1B2BED-4D5A-46C5-8289-60B09CBB3CE4",
+        "deviceName" : "MetroFocus QA Large",
+        "modelName" : "iPhone 15 Pro Max",
+        "osBuildNumber" : "23F77",
+        "osVersion" : "26.5",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 3,
+      "passedTests" : 13,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "MetroFocus · Built with macOS 27.2",
+  "expectedFailures" : 0,
+  "failedTests" : 3,
+  "finishTime" : 1790776282.111,
+  "passedTests" : 13,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1790775692.236,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "XCTAssertTrue failed",
+      "targetName" : "MetroFocusUITests",
+      "testIdentifier" : 8,
+      "testIdentifierString" : "JourneyFlowTests/testChineseFirstJourneyTicketPunchHistoryAndCardExport()",
+      "testIdentifierURL" : "test://com.apple.xcode/MetroFocus/MetroFocusUITests/JourneyFlowTests/testChineseFirstJourneyTicketPunchHistoryAndCardExport",
+      "testName" : "testChineseFirstJourneyTicketPunchHistoryAndCardExport()"
+    },
+    {
+      "failureText" : "XCTAssertTrue failed",
+      "targetName" : "MetroFocusUITests",
+      "testIdentifier" : 10,
+      "testIdentifierString" : "JourneyFlowTests/testEnglishJourneyExportsTransparentTicket()",
+      "testIdentifierURL" : "test://com.apple.xcode/MetroFocus/MetroFocusUITests/JourneyFlowTests/testEnglishJourneyExportsTransparentTicket",
+      "testName" : "testEnglishJourneyExportsTransparentTicket()"
+    },
+    {
+      "failureText" : "XCTAssertTrue failed - Selecting the shuttle must replace any remembered service before departure.",
+      "targetName" : "MetroFocusUITests",
+      "testIdentifier" : 16,
+      "testIdentifierString" : "VisualAcceptanceTests/testLargestDynamicTypeEnglishControlsRemainUsable()",
+      "testIdentifierURL" : "test://com.apple.xcode/MetroFocus/MetroFocusUITests/VisualAcceptanceTests/testLargestDynamicTypeEnglishControlsRemainUsable",
+      "testName" : "testLargestDynamicTypeEnglishControlsRemainUsable()"
+    }
+  ],
+  "title" : "Test - MetroFocus",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 16
+}

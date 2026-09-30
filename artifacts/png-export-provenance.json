@@ -1,0 +1,12 @@
+[
+  {
+    "source": "/Users/alcuin/Library/Developer/CoreSimulator/Devices/1F1B2BED-4D5A-46C5-8289-60B09CBB3CE4/data/Containers/Data/Application/7769A27F-0BEF-4059-9121-5AEC61272BF1/tmp/MetroFocus-6C766844-card.png",
+    "output": "artifacts/showcase/export-card.png",
+    "sourceModificationTime": 1790776492.919227
+  },
+  {
+    "source": "/Users/alcuin/Library/Developer/CoreSimulator/Devices/1F1B2BED-4D5A-46C5-8289-60B09CBB3CE4/data/Containers/Data/Application/7769A27F-0BEF-4059-9121-5AEC61272BF1/tmp/MetroFocus-440B5CF4-ticket.png",
+    "output": "artifacts/showcase/export-ticket.png",
+    "sourceModificationTime": 1790776658.3153932
+  }
+]

@@ -1,0 +1,893 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0738D1E8A71B44A36C288E5E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F9759410CDD426E7B3B78 /* SettingsView.swift */; };
+		0B344EEC2CCD92CBB317B084 /* VisualAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A02CB6FD0DC55A3725F6A23 /* VisualAcceptanceTests.swift */; };
+		103CD9F5BAED4EFDDD8670AC /* metro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3B862EAFFFF3C70C6C0681F4 /* metro.wav */; };
+		13CA32510F341A159E5AE472 /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FEC2BC4F512F0D639F9ECE /* LocalNotificationService.swift */; };
+		18AD8ED32795B79FDFD95C52 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB743033AF6B7CA27AA6E8AE /* NotificationRouter.swift */; };
+		1D911905DB1924EDC3A491AF /* JourneyFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01FA14FDC1E74956488FDEC /* JourneyFlowTests.swift */; };
+		21DE023B8763B66FED672F6B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6C9A6AA7835729B132F043FE /* Localizable.xcstrings */; };
+		3423790D39F57D82376AC540 /* punch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6917E6A27EA28C4C0ED3B545 /* punch.wav */; };
+		488AE6A6C7444DB097F419BE /* TicketViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B709E2D2F68DA799465AC078 /* TicketViews.swift */; };
+		53A03682F5316A005305E0AF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5614E062C9CB206EDDA3A72 /* Persistence.swift */; };
+		5BBD4135DED1E492C3F55826 /* JourneyEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BB507801E8E30B086B04AD /* JourneyEngineTests.swift */; };
+		5E204653B5C67234FA3D7734 /* JourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7AECCC52B9E412B423ACDE /* JourneyView.swift */; };
+		603643D89FE6C5F61E82D558 /* LiveActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E774FA7B2F48814819A29D /* LiveActivityService.swift */; };
+		604A3099FC27F984EE8AC395 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 755F593352E0E844CE3FF54C /* Localizable.xcstrings */; };
+		63E85A8E9C83B9C130BADAAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DA66E3ED4ED4C147F7A21E /* Assets.xcassets */; };
+		670782378B7AC3C399BF0C6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB69E7BEEDDE067D08F575F7 /* Foundation.framework */; };
+		7531E44EA4B57FC3805D601D /* JourneyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB46D77D423E4984A76AD1 /* JourneyTypes.swift */; };
+		77217706C1E54BE8452A59A3 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA5AEC6A56291182B443AA2 /* DesignSystem.swift */; };
+		77A8E51FBC624CD28D3FF5CA /* air.wav in Resources */ = {isa = PBXBuildFile; fileRef = CBD7A13E23A4CC8BF50A9E11 /* air.wav */; };
+		8239E6ACF8B788232A2136D4 /* arrival.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4A7F533932A0B43CA152EF98 /* arrival.wav */; };
+		839E6ADD1F10F7404EA2FD63 /* CollectionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D10DAFB650C50AD08CFECD1 /* CollectionViews.swift */; };
+		84F13D3A92C26E25075B1FF3 /* MetroFocusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20F80AE339CF1B938B6B8AB /* MetroFocusApp.swift */; };
+		8FDA472E3632EC6790EA7497 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB69E7BEEDDE067D08F575F7 /* Foundation.framework */; };
+		934B0891E030F7FF8715407F /* JourneyEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A411FDCBF64728B219E1C2F /* JourneyEngine.swift */; };
+		9C85AFE363B85A583727576B /* TransitActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A064BE8793CF688F9007ADCC /* TransitActivityAttributes.swift */; };
+		9EED27C76033430D22211209 /* TransitActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A064BE8793CF688F9007ADCC /* TransitActivityAttributes.swift */; };
+		A8E0E6615AC62EBC6BE5DF92 /* MetroFocusLiveActivity.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8BCD37026A33517565B099A6 /* MetroFocusLiveActivity.appex */; };
+		B431DD367D33E7D4CE0D943C /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F44A899A9BBD063AEA2CA7E /* AppModel.swift */; };
+		C1C05FFD83D6F5423A081862 /* SensoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF696F59FFA9880EF0FAEFF /* SensoryService.swift */; };
+		CBD8A2E835D4B152A13ECF35 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB69E7BEEDDE067D08F575F7 /* Foundation.framework */; };
+		CF7D62F24B7111C602FB0390 /* rain.wav in Resources */ = {isa = PBXBuildFile; fileRef = CDB2DDBBA9C5CD7E2346B454 /* rain.wav */; };
+		D1342AB3B8E1209B6AF1A069 /* StationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A04EB6D6FCEC68A3D3E5B0 /* StationView.swift */; };
+		D6669CDD706FF6DDFB84070A /* MetroFocusLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666D1EAD4B5C86A022FCDFC3 /* MetroFocusLiveActivity.swift */; };
+		EE48ED37781EA7227A3AF86F /* departure.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4AC72773034384DEE6CA5A77 /* departure.wav */; };
+		F319D9EA63A55D116BD999D1 /* SystemJourneySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4019FAD1CA6D6685A1B51D07 /* SystemJourneySnapshot.swift */; };
+		F4018C572A21C9BA0317703F /* RailArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E65BBFF06516CC962C469F /* RailArtwork.swift */; };
+		F83F2ED757AB3B449794A9A6 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FA4E27BB182BABE611B7F893 /* InfoPlist.xcstrings */; };
+		FC23639EECCEC9ED60F02E08 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB69E7BEEDDE067D08F575F7 /* Foundation.framework */; };
+		FD7EF3FC018F2F5AD614E1EB /* SensorySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A123CD4410F2831FC5B0714B /* SensorySettings.swift */; };
+		FEEAD0B5A94045F0244B6FB4 /* TicketMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD614C141A929E40CF39D2A3 /* TicketMotion.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5DDBBD48564C6C12102AD879 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0EF8FE72CAB7631655126D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B69951A2EAD8EB09B018B3D;
+			remoteInfo = MetroFocusLiveActivity;
+		};
+		8A75C410F16933818CD629D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0EF8FE72CAB7631655126D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79CCA19DDD76FC38AC93AB86;
+			remoteInfo = MetroFocus;
+		};
+		BC9AFC11F34BD6E13518BB41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B0EF8FE72CAB7631655126D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79CCA19DDD76FC38AC93AB86;
+			remoteInfo = MetroFocus;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		51673442047A367CD3D9BAAB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A8E0E6615AC62EBC6BE5DF92 /* MetroFocusLiveActivity.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0AA5AEC6A56291182B443AA2 /* DesignSystem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DesignSystem.swift; path = UI/DesignSystem.swift; sourceTree = "<group>"; };
+		0CF696F59FFA9880EF0FAEFF /* SensoryService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SensoryService.swift; path = Services/SensoryService.swift; sourceTree = "<group>"; };
+		10E65BBFF06516CC962C469F /* RailArtwork.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RailArtwork.swift; path = UI/RailArtwork.swift; sourceTree = "<group>"; };
+		14BB507801E8E30B086B04AD /* JourneyEngineTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JourneyEngineTests.swift; path = Domain/JourneyEngineTests.swift; sourceTree = "<group>"; };
+		39E774FA7B2F48814819A29D /* LiveActivityService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LiveActivityService.swift; path = Services/LiveActivityService.swift; sourceTree = "<group>"; };
+		3B862EAFFFF3C70C6C0681F4 /* metro.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = metro.wav; path = Resources/Audio/metro.wav; sourceTree = "<group>"; };
+		4019FAD1CA6D6685A1B51D07 /* SystemJourneySnapshot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SystemJourneySnapshot.swift; path = Services/SystemJourneySnapshot.swift; sourceTree = "<group>"; };
+		435112A319014D000FC12D54 /* MetroFocusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetroFocusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A7F533932A0B43CA152EF98 /* arrival.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = arrival.wav; path = Resources/Audio/arrival.wav; sourceTree = "<group>"; };
+		4AC72773034384DEE6CA5A77 /* departure.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = departure.wav; path = Resources/Audio/departure.wav; sourceTree = "<group>"; };
+		666D1EAD4B5C86A022FCDFC3 /* MetroFocusLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MetroFocusLiveActivity.swift; sourceTree = "<group>"; };
+		6917E6A27EA28C4C0ED3B545 /* punch.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = punch.wav; path = Resources/Audio/punch.wav; sourceTree = "<group>"; };
+		6C9A6AA7835729B132F043FE /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
+		755F593352E0E844CE3FF54C /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		7A02CB6FD0DC55A3725F6A23 /* VisualAcceptanceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VisualAcceptanceTests.swift; sourceTree = "<group>"; };
+		7A411FDCBF64728B219E1C2F /* JourneyEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JourneyEngine.swift; path = Domain/JourneyEngine.swift; sourceTree = "<group>"; };
+		7F44A899A9BBD063AEA2CA7E /* AppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppModel.swift; path = App/AppModel.swift; sourceTree = "<group>"; };
+		80AB46D77D423E4984A76AD1 /* JourneyTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JourneyTypes.swift; path = Domain/JourneyTypes.swift; sourceTree = "<group>"; };
+		8BCD37026A33517565B099A6 /* MetroFocusLiveActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MetroFocusLiveActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		981365E827FCE14618AA8E53 /* MetroFocus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroFocus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D10DAFB650C50AD08CFECD1 /* CollectionViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CollectionViews.swift; path = Features/CollectionViews.swift; sourceTree = "<group>"; };
+		A064BE8793CF688F9007ADCC /* TransitActivityAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransitActivityAttributes.swift; sourceTree = "<group>"; };
+		A123CD4410F2831FC5B0714B /* SensorySettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SensorySettings.swift; path = Services/SensorySettings.swift; sourceTree = "<group>"; };
+		A5614E062C9CB206EDDA3A72 /* Persistence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Persistence.swift; path = Domain/Persistence.swift; sourceTree = "<group>"; };
+		B709E2D2F68DA799465AC078 /* TicketViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TicketViews.swift; path = Features/TicketViews.swift; sourceTree = "<group>"; };
+		BB743033AF6B7CA27AA6E8AE /* NotificationRouter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotificationRouter.swift; path = Services/NotificationRouter.swift; sourceTree = "<group>"; };
+		C20F80AE339CF1B938B6B8AB /* MetroFocusApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MetroFocusApp.swift; path = App/MetroFocusApp.swift; sourceTree = "<group>"; };
+		CBD7A13E23A4CC8BF50A9E11 /* air.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = air.wav; path = Resources/Audio/air.wav; sourceTree = "<group>"; };
+		CDB2DDBBA9C5CD7E2346B454 /* rain.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = rain.wav; path = Resources/Audio/rain.wav; sourceTree = "<group>"; };
+		D0DA66E3ED4ED4C147F7A21E /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		D56F9759410CDD426E7B3B78 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Features/SettingsView.swift; sourceTree = "<group>"; };
+		DD614C141A929E40CF39D2A3 /* TicketMotion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TicketMotion.swift; path = Services/TicketMotion.swift; sourceTree = "<group>"; };
+		E54571A8D1E046B2ABA4590F /* MetroFocusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetroFocusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB69E7BEEDDE067D08F575F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		EF7AECCC52B9E412B423ACDE /* JourneyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JourneyView.swift; path = Features/JourneyView.swift; sourceTree = "<group>"; };
+		F01FA14FDC1E74956488FDEC /* JourneyFlowTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JourneyFlowTests.swift; sourceTree = "<group>"; };
+		F1A04EB6D6FCEC68A3D3E5B0 /* StationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StationView.swift; path = Features/StationView.swift; sourceTree = "<group>"; };
+		F7FEC2BC4F512F0D639F9ECE /* LocalNotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LocalNotificationService.swift; path = Services/LocalNotificationService.swift; sourceTree = "<group>"; };
+		FA4E27BB182BABE611B7F893 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; name = InfoPlist.xcstrings; path = Resources/InfoPlist.xcstrings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6677B51AC1469FBDB4108A25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				670782378B7AC3C399BF0C6E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7AE66F1823DF9CF34BB37E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC23639EECCEC9ED60F02E08 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D89197166DB5070B2F26E9C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBD8A2E835D4B152A13ECF35 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D89C6ED0D04336C39A8665E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FDA472E3632EC6790EA7497 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06158BC8282EC56F8DEF7AD8 /* MetroFocus */ = {
+			isa = PBXGroup;
+			children = (
+				7F44A899A9BBD063AEA2CA7E /* AppModel.swift */,
+				C20F80AE339CF1B938B6B8AB /* MetroFocusApp.swift */,
+				7A411FDCBF64728B219E1C2F /* JourneyEngine.swift */,
+				80AB46D77D423E4984A76AD1 /* JourneyTypes.swift */,
+				A5614E062C9CB206EDDA3A72 /* Persistence.swift */,
+				9D10DAFB650C50AD08CFECD1 /* CollectionViews.swift */,
+				EF7AECCC52B9E412B423ACDE /* JourneyView.swift */,
+				D56F9759410CDD426E7B3B78 /* SettingsView.swift */,
+				F1A04EB6D6FCEC68A3D3E5B0 /* StationView.swift */,
+				B709E2D2F68DA799465AC078 /* TicketViews.swift */,
+				39E774FA7B2F48814819A29D /* LiveActivityService.swift */,
+				F7FEC2BC4F512F0D639F9ECE /* LocalNotificationService.swift */,
+				BB743033AF6B7CA27AA6E8AE /* NotificationRouter.swift */,
+				0CF696F59FFA9880EF0FAEFF /* SensoryService.swift */,
+				A123CD4410F2831FC5B0714B /* SensorySettings.swift */,
+				4019FAD1CA6D6685A1B51D07 /* SystemJourneySnapshot.swift */,
+				DD614C141A929E40CF39D2A3 /* TicketMotion.swift */,
+				0AA5AEC6A56291182B443AA2 /* DesignSystem.swift */,
+				10E65BBFF06516CC962C469F /* RailArtwork.swift */,
+				CBD7A13E23A4CC8BF50A9E11 /* air.wav */,
+				4A7F533932A0B43CA152EF98 /* arrival.wav */,
+				4AC72773034384DEE6CA5A77 /* departure.wav */,
+				3B862EAFFFF3C70C6C0681F4 /* metro.wav */,
+				6917E6A27EA28C4C0ED3B545 /* punch.wav */,
+				CDB2DDBBA9C5CD7E2346B454 /* rain.wav */,
+				FA4E27BB182BABE611B7F893 /* InfoPlist.xcstrings */,
+				6C9A6AA7835729B132F043FE /* Localizable.xcstrings */,
+				D0DA66E3ED4ED4C147F7A21E /* Assets.xcassets */,
+			);
+			path = MetroFocus;
+			sourceTree = "<group>";
+		};
+		2992CF64A9DFB613BFE4E464 = {
+			isa = PBXGroup;
+			children = (
+				50845D1D518CD91210514FE2 /* Products */,
+				4855D53E2B3230BE49F2A4EC /* Frameworks */,
+				06158BC8282EC56F8DEF7AD8 /* MetroFocus */,
+				9984F65EF6007E0C7249B1A9 /* MetroFocusLiveActivity */,
+				7B824600D68C004A739852CC /* MetroFocusTests */,
+				FDF10FF8A79A6C8C75730EE4 /* MetroFocusUITests */,
+				3AE40F28CD08771F2EDFD559 /* Shared */,
+			);
+			sourceTree = "<group>";
+		};
+		368A9A78A197C38C17F39F19 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EB69E7BEEDDE067D08F575F7 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		3AE40F28CD08771F2EDFD559 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A064BE8793CF688F9007ADCC /* TransitActivityAttributes.swift */,
+			);
+			name = Shared;
+			path = MetroFocus/Shared;
+			sourceTree = "<group>";
+		};
+		4855D53E2B3230BE49F2A4EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				368A9A78A197C38C17F39F19 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		50845D1D518CD91210514FE2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				981365E827FCE14618AA8E53 /* MetroFocus.app */,
+				8BCD37026A33517565B099A6 /* MetroFocusLiveActivity.appex */,
+				435112A319014D000FC12D54 /* MetroFocusTests.xctest */,
+				E54571A8D1E046B2ABA4590F /* MetroFocusUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B824600D68C004A739852CC /* MetroFocusTests */ = {
+			isa = PBXGroup;
+			children = (
+				14BB507801E8E30B086B04AD /* JourneyEngineTests.swift */,
+			);
+			path = MetroFocusTests;
+			sourceTree = "<group>";
+		};
+		9984F65EF6007E0C7249B1A9 /* MetroFocusLiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				666D1EAD4B5C86A022FCDFC3 /* MetroFocusLiveActivity.swift */,
+				755F593352E0E844CE3FF54C /* Localizable.xcstrings */,
+			);
+			path = MetroFocusLiveActivity;
+			sourceTree = "<group>";
+		};
+		FDF10FF8A79A6C8C75730EE4 /* MetroFocusUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F01FA14FDC1E74956488FDEC /* JourneyFlowTests.swift */,
+				7A02CB6FD0DC55A3725F6A23 /* VisualAcceptanceTests.swift */,
+			);
+			path = MetroFocusUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3B69951A2EAD8EB09B018B3D /* MetroFocusLiveActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E796EDAC898D18A2132A010 /* Build configuration list for PBXNativeTarget "MetroFocusLiveActivity" */;
+			buildPhases = (
+				4F56E0DD11B20399630BA7B7 /* Sources */,
+				D89C6ED0D04336C39A8665E0 /* Frameworks */,
+				5800C1B65CFEE35623F1BAB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MetroFocusLiveActivity;
+			productName = MetroFocusLiveActivity;
+			productReference = 8BCD37026A33517565B099A6 /* MetroFocusLiveActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		73E1C811ABBEF842995FA5C3 /* MetroFocusUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94CAD16B10869974A4ACDE7B /* Build configuration list for PBXNativeTarget "MetroFocusUITests" */;
+			buildPhases = (
+				0EA1AEBEACA7BFA9F1622933 /* Sources */,
+				B7AE66F1823DF9CF34BB37E7 /* Frameworks */,
+				4F699446FB32296F5D560A7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A3EB40D5461F6B9D0652516 /* PBXTargetDependency */,
+			);
+			name = MetroFocusUITests;
+			productName = MetroFocusUITests;
+			productReference = E54571A8D1E046B2ABA4590F /* MetroFocusUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		79CCA19DDD76FC38AC93AB86 /* MetroFocus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7391C990A4D646EC5DB45AFB /* Build configuration list for PBXNativeTarget "MetroFocus" */;
+			buildPhases = (
+				5F90EA7AC61607500F26FBBE /* Sources */,
+				D89197166DB5070B2F26E9C4 /* Frameworks */,
+				DA1E3A7967ECDD2D1625A4E1 /* Resources */,
+				51673442047A367CD3D9BAAB /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				525D1F4AAE753116A3C37DC7 /* PBXTargetDependency */,
+			);
+			name = MetroFocus;
+			productName = MetroFocus;
+			productReference = 981365E827FCE14618AA8E53 /* MetroFocus.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ACD83C4A511465F179E3335C /* MetroFocusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5CF851B29FE0637F8371BFE /* Build configuration list for PBXNativeTarget "MetroFocusTests" */;
+			buildPhases = (
+				B971587F348AED4E06BC8921 /* Sources */,
+				6677B51AC1469FBDB4108A25 /* Frameworks */,
+				584C682A136EC5247A5E821E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				833645AA4360549B60896D0D /* PBXTargetDependency */,
+			);
+			name = MetroFocusTests;
+			productName = MetroFocusTests;
+			productReference = 435112A319014D000FC12D54 /* MetroFocusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B0EF8FE72CAB7631655126D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					3B69951A2EAD8EB09B018B3D = {
+						ProvisioningStyle = Automatic;
+					};
+					73E1C811ABBEF842995FA5C3 = {
+						ProvisioningStyle = Automatic;
+					};
+					79CCA19DDD76FC38AC93AB86 = {
+						DevelopmentTeam = RZD9M68FZ9;
+						ProvisioningStyle = Automatic;
+					};
+					ACD83C4A511465F179E3335C = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A6AEB585D70E10F93B3E3C5F /* Build configuration list for PBXProject "MetroFocus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+				Base,
+			);
+			mainGroup = 2992CF64A9DFB613BFE4E464;
+			productRefGroup = 50845D1D518CD91210514FE2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				79CCA19DDD76FC38AC93AB86 /* MetroFocus */,
+				3B69951A2EAD8EB09B018B3D /* MetroFocusLiveActivity */,
+				ACD83C4A511465F179E3335C /* MetroFocusTests */,
+				73E1C811ABBEF842995FA5C3 /* MetroFocusUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4F699446FB32296F5D560A7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5800C1B65CFEE35623F1BAB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				604A3099FC27F984EE8AC395 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		584C682A136EC5247A5E821E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA1E3A7967ECDD2D1625A4E1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77A8E51FBC624CD28D3FF5CA /* air.wav in Resources */,
+				8239E6ACF8B788232A2136D4 /* arrival.wav in Resources */,
+				EE48ED37781EA7227A3AF86F /* departure.wav in Resources */,
+				103CD9F5BAED4EFDDD8670AC /* metro.wav in Resources */,
+				3423790D39F57D82376AC540 /* punch.wav in Resources */,
+				CF7D62F24B7111C602FB0390 /* rain.wav in Resources */,
+				F83F2ED757AB3B449794A9A6 /* InfoPlist.xcstrings in Resources */,
+				21DE023B8763B66FED672F6B /* Localizable.xcstrings in Resources */,
+				63E85A8E9C83B9C130BADAAD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0EA1AEBEACA7BFA9F1622933 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D911905DB1924EDC3A491AF /* JourneyFlowTests.swift in Sources */,
+				0B344EEC2CCD92CBB317B084 /* VisualAcceptanceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F56E0DD11B20399630BA7B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6669CDD706FF6DDFB84070A /* MetroFocusLiveActivity.swift in Sources */,
+				9EED27C76033430D22211209 /* TransitActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5F90EA7AC61607500F26FBBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B431DD367D33E7D4CE0D943C /* AppModel.swift in Sources */,
+				84F13D3A92C26E25075B1FF3 /* MetroFocusApp.swift in Sources */,
+				934B0891E030F7FF8715407F /* JourneyEngine.swift in Sources */,
+				7531E44EA4B57FC3805D601D /* JourneyTypes.swift in Sources */,
+				53A03682F5316A005305E0AF /* Persistence.swift in Sources */,
+				839E6ADD1F10F7404EA2FD63 /* CollectionViews.swift in Sources */,
+				5E204653B5C67234FA3D7734 /* JourneyView.swift in Sources */,
+				0738D1E8A71B44A36C288E5E /* SettingsView.swift in Sources */,
+				D1342AB3B8E1209B6AF1A069 /* StationView.swift in Sources */,
+				488AE6A6C7444DB097F419BE /* TicketViews.swift in Sources */,
+				603643D89FE6C5F61E82D558 /* LiveActivityService.swift in Sources */,
+				13CA32510F341A159E5AE472 /* LocalNotificationService.swift in Sources */,
+				18AD8ED32795B79FDFD95C52 /* NotificationRouter.swift in Sources */,
+				C1C05FFD83D6F5423A081862 /* SensoryService.swift in Sources */,
+				FD7EF3FC018F2F5AD614E1EB /* SensorySettings.swift in Sources */,
+				F319D9EA63A55D116BD999D1 /* SystemJourneySnapshot.swift in Sources */,
+				FEEAD0B5A94045F0244B6FB4 /* TicketMotion.swift in Sources */,
+				77217706C1E54BE8452A59A3 /* DesignSystem.swift in Sources */,
+				F4018C572A21C9BA0317703F /* RailArtwork.swift in Sources */,
+				9C85AFE363B85A583727576B /* TransitActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B971587F348AED4E06BC8921 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BBD4135DED1E492C3F55826 /* JourneyEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		525D1F4AAE753116A3C37DC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MetroFocusLiveActivity;
+			target = 3B69951A2EAD8EB09B018B3D /* MetroFocusLiveActivity */;
+			targetProxy = 5DDBBD48564C6C12102AD879 /* PBXContainerItemProxy */;
+		};
+		833645AA4360549B60896D0D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MetroFocus;
+			target = 79CCA19DDD76FC38AC93AB86 /* MetroFocus */;
+			targetProxy = BC9AFC11F34BD6E13518BB41 /* PBXContainerItemProxy */;
+		};
+		9A3EB40D5461F6B9D0652516 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MetroFocus;
+			target = 79CCA19DDD76FC38AC93AB86 /* MetroFocus */;
+			targetProxy = 8A75C410F16933818CD629D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0890A6DD9AC5DB3402485D48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		11CE055936B135AA56DA29CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MetroFocusLiveActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.app.liveactivity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		3038BDA71AA89445DC89A137 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RZD9M68FZ9;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MetroFocus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MetroFocus;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save a copy of your focus ticket to your photo library.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.app;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		652C347C24A7E16B5557A3E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.metrofocusuitests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MetroFocus;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		76BDF79D7B0387D3C922FCC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.metrofocustests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetroFocus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MetroFocus";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7C4D116FE7D5F27000647DA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RZD9M68FZ9;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MetroFocus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MetroFocus;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save a copy of your focus ticket to your photo library.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.app;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AD220105ED1F1DF89DAEB93C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B3308EE207FEFC43A3072677 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.metrofocustests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetroFocus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MetroFocus";
+			};
+			name = Debug;
+		};
+		DA95CACC5DCEACAF064104E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MetroFocusLiveActivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.app.liveactivity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FD53255D4680B52BEA886756 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metrofocus.metrofocusuitests;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MetroFocus;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E796EDAC898D18A2132A010 /* Build configuration list for PBXNativeTarget "MetroFocusLiveActivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA95CACC5DCEACAF064104E3 /* Release */,
+				11CE055936B135AA56DA29CE /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7391C990A4D646EC5DB45AFB /* Build configuration list for PBXNativeTarget "MetroFocus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C4D116FE7D5F27000647DA0 /* Release */,
+				3038BDA71AA89445DC89A137 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		94CAD16B10869974A4ACDE7B /* Build configuration list for PBXNativeTarget "MetroFocusUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				652C347C24A7E16B5557A3E1 /* Release */,
+				FD53255D4680B52BEA886756 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A6AEB585D70E10F93B3E3C5F /* Build configuration list for PBXProject "MetroFocus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD220105ED1F1DF89DAEB93C /* Debug */,
+				0890A6DD9AC5DB3402485D48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C5CF851B29FE0637F8371BFE /* Build configuration list for PBXNativeTarget "MetroFocusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76BDF79D7B0387D3C922FCC1 /* Release */,
+				B3308EE207FEFC43A3072677 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B0EF8FE72CAB7631655126D /* Project object */;
+}

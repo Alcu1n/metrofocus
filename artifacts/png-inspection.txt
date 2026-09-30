@@ -1,0 +1,5 @@
+export-card.png: 1350x1975, transparent pixels=0, opaque pixels=2666250
+export-ticket.png: 1200x1511, transparent pixels=317429, opaque pixels=1495080
+  outer corner: alpha=0
+  punch hole: alpha=0
+  paper: alpha=255

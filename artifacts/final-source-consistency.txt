@@ -1,0 +1,1 @@
+PASS: all sources match source-sha256.txt captured before large-type-cards. The complete 16-test regression is pinned separately in acceptance-final-source-sha256.txt.

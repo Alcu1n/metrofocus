@@ -1,0 +1,3 @@
+013484b093a30b51fd240b99bca2d62c71bfa1ca8701dbfc8aebd35da94840d7  build/SmallFinal/Build/Products/Debug-iphonesimulator/MetroFocus.app/MetroFocus
+ad86a87ba5f70db8e4b0fefb36969f9bae9c66c0870ffb773b4a0088d1b7cbcb  build/SmallFinal/Build/Products/Debug-iphonesimulator/MetroFocusUITests-Runner.app/PlugIns/MetroFocusUITests.xctest/MetroFocusUITests
+703c7dd53398aaa41f22d1c7125ae097e412d582cd3a5a187987e86b1de9f685  build/SmallFinal/Build/Products/Debug-iphonesimulator/MetroFocus.app/MetroFocus.debug.dylib

@@ -1,0 +1,16 @@
+build/
+.DS_Store
+*.xcuserstate
+xcuserdata/
+__pycache__/
+*.py[cod]
+
+# Keep reproducible evidence; leave generated test bundles and raw captures local.
+/artifacts/*
+!/artifacts/showcase/
+!/artifacts/*-summary.json
+!/artifacts/*source*.txt
+!/artifacts/accessibility-hitarea-binary-sha256.txt
+!/artifacts/png-inspection.txt
+!/artifacts/png-export-provenance.json
+!/artifacts/video-inspection.json
