@@ -1,6 +1,19 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "·" : {
+
+    },
+    "%@, %@, %@ %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@, %3$@ %4$@, %5$@"
+          }
+        }
+      }
+    },
     "%d min × %d stop" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -31,227 +44,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%d 分钟 × %d 段"
-          }
-        }
-      }
-    },
-    "30-second boarding" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "30-second boarding"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "30 秒候车准备"
-          }
-        }
-      }
-    },
-    "Add something you want to finish first." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add something you want to finish first."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "先写下这次想完成的事。"
-          }
-        }
-      }
-    },
-    "Edit task name" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit task name"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "编辑任务名称"
-          }
-        }
-      }
-    },
-    "wallet.footer" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Every minute matters."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "你的每一分钟，都算数。"
-          }
-        }
-      }
-    },
-    "Every ticket, an arrival" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Every ticket, an arrival"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "每一张，都是抵达"
-          }
-        }
-      }
-    },
-    "NOT YET BOARDED" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "NOT YET BOARDED"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "尚未发车"
-          }
-        }
-      }
-    },
-    "PERSONAL TRANSIT PASS" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "PERSONAL TRANSIT PASS"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "个人通行凭证"
-          }
-        }
-      }
-    },
-    "TODAY" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TODAY"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今天"
-          }
-        }
-      }
-    },
-    "Validated" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Validated"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已验票"
-          }
-        }
-      }
-    },
-    "WHAT WILL YOU FINISH?" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "WHAT WILL YOU FINISH?"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "这一程，想完成什么？"
-          }
-        }
-      }
-    },
-    "YESTERDAY" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YESTERDAY"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "昨天"
-          }
-        }
-      }
-    },
-    "min focus" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "min focus"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分钟专注"
-          }
-        }
-      }
-    },
-    "wallet.ticketCount" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "tickets"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "张车票"
           }
         }
       }
@@ -409,9 +201,6 @@
         }
       }
     },
-    "×%lld" : {
-
-    },
     "1 HOUR = 10 km" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -425,6 +214,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1 小时 = 10 km"
+          }
+        }
+      }
+    },
+    "30-second boarding" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30-second boarding"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 秒候车准备"
           }
         }
       }
@@ -476,6 +282,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "站台换乘中"
+          }
+        }
+      }
+    },
+    "Add something you want to finish first." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add something you want to finish first."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "先写下这次想完成的事。"
           }
         }
       }
@@ -633,23 +456,6 @@
         }
       }
     },
-    "journey.arrivedLabel" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ARRIVED"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已到站"
-          }
-        }
-      }
-    },
     "Atlas" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -663,6 +469,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "路网"
+          }
+        }
+      }
+    },
+    "atlas.hereNowLabel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HERE & NOW"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此刻"
           }
         }
       }
@@ -1075,6 +898,23 @@
         }
       }
     },
+    "Edit task name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit task name"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑任务名称"
+          }
+        }
+      }
+    },
     "Enable arrival alerts" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1207,6 +1047,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你走过的每一分钟，都有迹可循。"
+          }
+        }
+      }
+    },
+    "Every ticket, an arrival" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every ticket, an arrival"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每一张，都是抵达"
           }
         }
       }
@@ -1381,23 +1238,6 @@
         }
       }
     },
-    "atlas.hereNowLabel" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HERE & NOW"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此刻"
-          }
-        }
-      }
-    },
     "I'm refreshed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1466,6 +1306,23 @@
         }
       }
     },
+    "journey.arrivedLabel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ARRIVED"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已到站"
+          }
+        }
+      }
+    },
     "Keep focusing" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1482,9 +1339,6 @@
           }
         }
       }
-    },
-    "KEEP GOING." : {
-
     },
     "Keep in ticket wallet" : {
       "extractionState" : "manual",
@@ -1682,8 +1536,22 @@
         }
       }
     },
-    "MIN" : {
-
+    "min focus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "min focus"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分钟专注"
+          }
+        }
+      }
     },
     "MIN OF FOCUS" : {
       "extractionState" : "manual",
@@ -1766,6 +1634,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "下一站，心无旁骛。"
+          }
+        }
+      }
+    },
+    "NOT YET BOARDED" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NOT YET BOARDED"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未发车"
           }
         }
       }
@@ -1923,8 +1808,22 @@
         }
       }
     },
-    "PERSONAL TRANSIT AUTHORITY" : {
-
+    "PERSONAL TRANSIT PASS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PERSONAL TRANSIT PASS"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "个人通行凭证"
+          }
+        }
+      }
     },
     "Plan your route" : {
       "extractionState" : "manual",
@@ -2078,6 +1977,9 @@
           }
         }
       }
+    },
+    "READY WHEN YOU ARE" : {
+
     },
     "Ready. Let's go" : {
       "extractionState" : "manual",
@@ -2742,6 +2644,23 @@
         }
       }
     },
+    "TODAY" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODAY"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
+        }
+      }
+    },
     "TOTAL" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2844,6 +2763,23 @@
         }
       }
     },
+    "Validated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Validated"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已验票"
+          }
+        }
+      }
+    },
     "Version" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2878,6 +2814,40 @@
         }
       }
     },
+    "wallet.footer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every minute matters."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你的每一分钟，都算数。"
+          }
+        }
+      }
+    },
+    "wallet.ticketCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tickets"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "张车票"
+          }
+        }
+      }
+    },
     "What are you working on?" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2895,6 +2865,23 @@
         }
       }
     },
+    "WHAT WILL YOU FINISH?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WHAT WILL YOU FINISH?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "这一程，想完成什么？"
+          }
+        }
+      }
+    },
     "Writing" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2908,6 +2895,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "写作线"
+          }
+        }
+      }
+    },
+    "YESTERDAY" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YESTERDAY"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昨天"
           }
         }
       }
