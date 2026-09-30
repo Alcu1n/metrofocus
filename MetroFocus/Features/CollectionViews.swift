@@ -107,9 +107,9 @@ struct TicketRow: View {
                 HStack(spacing: 8) { lineLabel.fixedSize(); Spacer(minLength: 8); arrivalLabel.fixedSize() }
                 VStack(alignment: .leading, spacing: 8) { lineLabel; arrivalLabel }
             }
-            Text(ticket.task).font(.system(size: taskSize, weight: .semibold)).tracking(-0.3)
+            Text(ticket.task).font(.system(size: taskSize, weight: .semibold)).tracking(-0.3).ticketImprint()
                 .fixedSize(horizontal: false, vertical: true).padding(.top, 12).padding(.bottom, 13)
-            DashedRule().stroke(MetroTheme.paperPerforation, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+            TicketPerforation()
                 .frame(height: 1).anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
                 .accessibilityHidden(true)
             ViewThatFits(in: .horizontal) {
@@ -121,7 +121,7 @@ struct TicketRow: View {
         .foregroundStyle(MetroTheme.paperInk)
         .backgroundPreferenceValue(TicketTearPreference.self) { anchor in
             GeometryReader { geometry in
-                MetroTheme.paper.mask(TicketSilhouette(punched: false, tearY: anchor.map { geometry[$0].midY }, notchRadius: 8).fill(style: FillStyle(eoFill: true)))
+                TicketPaper(tearY: anchor.map { geometry[$0].midY }, notchRadius: 8)
             }
         }
         .contentShape(Rectangle())
@@ -143,7 +143,7 @@ struct TicketRow: View {
     }
     private var durationLabel: some View {
         HStack(alignment: .firstTextBaseline, spacing: 4) {
-            Text(minuteText(ticket.focusSeconds)).font(.system(size: minutesSize, weight: .medium)).monospacedDigit().tracking(-0.6)
+            Text(minuteText(ticket.focusSeconds)).font(.system(size: minutesSize, weight: .medium)).monospacedDigit().tracking(-0.6).ticketImprint()
             Text(L("分钟专注", "min focus")).font(.caption2)
         }
     }

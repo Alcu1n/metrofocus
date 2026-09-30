@@ -36,6 +36,8 @@ final class VisualAcceptanceTests: XCTestCase {
         submitKeyboard(task)
         XCTAssertFalse(app.staticTexts["destinationError"].exists, "Valid input clears the paper form error.")
         capture("C station – populated paper form")
+        app.scrollViews.firstMatch.swipeUp(velocity: .slow)
+        capture("C station – complete paper edge after scrolling")
 
         tap("editRoute")
         capture("Route editor – standard form")

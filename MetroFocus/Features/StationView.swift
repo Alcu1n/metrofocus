@@ -147,7 +147,7 @@ struct StationView: View {
                 serviceCard(.express, minutes: 50, segments: 2)
                 if draft.kind == .custom { serviceCard(.custom, minutes: draft.customFocus, segments: draft.customCount) }
             }
-            DashedRule().stroke(MetroTheme.paperPerforation, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+            TicketPerforation()
                 .frame(height: 1).padding(.top, 22)
                 .anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
             adaptiveRow {
@@ -176,7 +176,7 @@ struct StationView: View {
         .padding(.horizontal, 21).padding(.top, 21).foregroundStyle(MetroTheme.paperInk)
         .backgroundPreferenceValue(TicketTearPreference.self) { anchor in
             GeometryReader { geometry in
-                MetroTheme.paper.mask(TicketSilhouette(punched: false, tearY: anchor.map { geometry[$0].maxY }).fill(style: FillStyle(eoFill: true)))
+                TicketPaper(tearY: anchor.map { geometry[$0].maxY })
             }
         }
     }

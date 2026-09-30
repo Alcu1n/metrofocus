@@ -15,6 +15,66 @@ struct TicketSilhouette: Shape {
     }
 }
 
+/// A thin card-stock edge follows the same tear notches and punched hole as the face.
+struct TicketPaper: View {
+    var punched = false
+    var tearY: CGFloat?
+    var notchRadius: CGFloat = 9.5
+
+    var body: some View {
+        let shape = TicketSilhouette(punched: punched, tearY: tearY, notchRadius: notchRadius)
+        ZStack {
+            shape.fill(Color(hex: 0xA99F82), style: FillStyle(eoFill: true))
+                .clipped().offset(y: 2)
+            shape.fill(Color(hex: 0xC9BFA3), style: FillStyle(eoFill: true))
+                .clipped().offset(y: 1)
+            MetroTheme.paper
+                .overlay {
+                    // Fixed, very fine fibers: no animated noise or image assets.
+                    Canvas { context, size in
+                        for index in 0..<Int(size.width * size.height / 95) {
+                            let x = CGFloat((index * 73 + 19) % 1009) / 1009 * size.width
+                            let y = CGFloat((index * 137 + 47) % 1013) / 1013 * size.height
+                            context.fill(Path(ellipseIn: CGRect(x: x, y: y, width: 0.8, height: 0.35)),
+                                         with: .color(MetroTheme.paperInk.opacity(0.055)))
+                        }
+                    }
+                }
+                .mask(shape.fill(style: FillStyle(eoFill: true)))
+            shape.stroke(LinearGradient(colors: [.white.opacity(0.7), Color(hex: 0x9F9476).opacity(0.55)],
+                                        startPoint: .top, endPoint: .bottom), lineWidth: 1)
+                .mask(shape.fill(style: FillStyle(eoFill: true)))
+                .clipped()
+        }
+        .compositingGroup()
+        .accessibilityHidden(true)
+        .allowsHitTesting(false)
+    }
+}
+
+/// Dark upper recess and a lower paper lip suggest ink pressed into stock.
+private struct TicketImprint: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundStyle(MetroTheme.paperInk.shadow(.inner(color: .black.opacity(0.45), radius: 0.4, x: 0, y: 0.55)))
+            .shadow(color: .white.opacity(0.7), radius: 0.15, x: 0, y: 0.65)
+    }
+}
+
+extension View {
+    func ticketImprint() -> some View { modifier(TicketImprint()) }
+}
+
+struct TicketPerforation: View {
+    var body: some View {
+        ZStack {
+            DashedRule().stroke(.white.opacity(0.8), style: StrokeStyle(lineWidth: 1.2, lineCap: .round, dash: [3, 3]))
+                .offset(y: 0.85)
+            DashedRule().stroke(Color(hex: 0x756F59).opacity(0.8), style: StrokeStyle(lineWidth: 1.1, lineCap: .round, dash: [3, 3]))
+        }.frame(height: 1).accessibilityHidden(true).allowsHitTesting(false)
+    }
+}
+
 struct TicketTearPreference: PreferenceKey {
     static var defaultValue: Anchor<CGRect>? = nil
     static func reduce(value: inout Anchor<CGRect>?, nextValue: () -> Anchor<CGRect>?) { value = nextValue() ?? value }
@@ -44,7 +104,7 @@ struct TicketFace: View {
                 HStack(spacing: 8) { lineLabel.fixedSize(); Spacer(minLength: 8); serviceCode.fixedSize() }
                 VStack(alignment: .leading, spacing: 6) { lineLabel; serviceCode }
             }.padding(.top, 16)
-            Text(ticket.task).font(.system(size: taskSize, weight: .semibold)).tracking(-0.3)
+            Text(ticket.task).font(.system(size: taskSize, weight: .semibold)).tracking(-0.3).ticketImprint()
                 .fixedSize(horizontal: false, vertical: true).padding(.top, 13).padding(.bottom, 23)
             ViewThatFits(in: .horizontal) {
                 HStack {
@@ -63,7 +123,7 @@ struct TicketFace: View {
                 HStack(alignment: .firstTextBaseline, spacing: 7) { focusNumber.fixedSize(); focusCaption.fixedSize(); Spacer(minLength: 0) }
                 VStack(alignment: .leading, spacing: 7) { focusNumber; focusCaption }
             }.padding(.top, 24).padding(.bottom, 16)
-            DashedRule().stroke(MetroTheme.paperPerforation, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+            TicketPerforation()
                 .frame(height: 1).anchorPreference(key: TicketTearPreference.self, value: .bounds) { $0 }
                 .accessibilityHidden(true)
             tailLayout {
@@ -91,7 +151,7 @@ struct TicketFace: View {
         .foregroundStyle(MetroTheme.paperInk)
         .backgroundPreferenceValue(TicketTearPreference.self) { tearAnchor in
             GeometryReader { geometry in
-                MetroTheme.paper.mask(TicketSilhouette(punched: ticket.punchedAt != nil, tearY: tearAnchor.map { geometry[$0].midY }).fill(style: FillStyle(eoFill: true)))
+                TicketPaper(punched: ticket.punchedAt != nil, tearY: tearAnchor.map { geometry[$0].midY })
             }
         }
         .accessibilityElement(children: .contain)
@@ -108,13 +168,13 @@ struct TicketFace: View {
     }
     private var serviceCode: some View { Text(verbatim: ticket.kind.code).font(.caption2.monospaced()).foregroundStyle(MetroTheme.paperSecondary) }
     private var focusNumber: some View {
-        Text(minuteText(ticket.focusSeconds)).font(.system(size: focusSize, weight: .medium)).monospacedDigit().tracking(-1.2)
+        Text(minuteText(ticket.focusSeconds)).font(.system(size: focusSize, weight: .medium)).monospacedDigit().tracking(-1.2).ticketImprint()
     }
     private var focusCaption: some View { Text(L("分钟专注", "MIN OF FOCUS")).font(.caption2).foregroundStyle(MetroTheme.paperSecondary) }
     private func timeColumn(_ title: String, date: Date, alignment: HorizontalAlignment) -> some View {
         VStack(alignment: alignment, spacing: 4) {
             Text(title).font(.caption2).foregroundStyle(MetroTheme.paperSecondary)
-            Text(date, format: .dateTime.hour().minute()).font(.system(size: timeSize, weight: .medium)).monospacedDigit()
+            Text(date, format: .dateTime.hour().minute()).font(.system(size: timeSize, weight: .medium)).monospacedDigit().ticketImprint()
         }
     }
     private var stamp: some View {

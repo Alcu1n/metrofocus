@@ -1,0 +1,3 @@
+Production source matches letterpress-source-sha256.txt.
+Only added a station scroll screenshot to the UI test.
+ae9e37177c21027674a45ccd6a808a81e34f4a75d10ae656eec5e69db3ed4875  MetroFocusUITests/VisualAcceptanceTests.swift
