@@ -15,6 +15,8 @@
 
 ## 构建前置问题
 
+**2026-10-01 已修复：** 两个大写标牌键改为 `journey.arrivedLabel` 和 `atlas.hereNowLabel`，调用与本地化生成脚本同步更新，原有中英文显示值保留。新建 DerivedData 后，默认 `STRING_CATALOG_GENERATE_SYMBOLS=YES` 的 Debug 模拟器 arm64 / x86_64 构建通过（`artifacts/symbol-fix-debug.log`）；无需下文旧验收采用的符号生成绕过。生成脚本在临时目录复验通过，未重写现有字符串表。以下段落保留当时的历史诊断。
+
 当前项目已有 `STRING_CATALOG_GENERATE_SYMBOLS=YES`；原有 `ARRIVED` / `Arrived` 与 `HERE & NOW` / `Here & now` 会生成同名符号，默认构建因此失败。已从本轮开始前的字符串表确认这些冲突存在。本轮验证均以命令行 `STRING_CATALOG_GENERATE_SYMBOLS=NO` 临时绕过，不改用户项目配置和旧文案。新增相似文案使用 `wallet.footer`、`wallet.ticketCount` 独立 key，未增加此类冲突。
 
 最新 Debug 测试构建及 Release 模拟器构建通过；Release 日志为 `artifacts/c-release-final.log`。这不代表默认构建冲突已被修复，也不代表签名或真机运行通过。

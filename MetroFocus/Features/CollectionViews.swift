@@ -361,7 +361,7 @@ struct AtlasMap: View {
                 context.fill(origin, with: .color(background))
                 context.stroke(origin, with: .color(MetroTheme.ink), lineWidth: 4)
             }
-            Text(L("此刻", "HERE & NOW")).font(.caption.weight(.bold)).foregroundStyle(MetroTheme.ink)
+            Text(String(localized: "atlas.hereNowLabel", defaultValue: "HERE & NOW")).font(.caption.weight(.bold)).foregroundStyle(MetroTheme.ink)
                 .padding(.horizontal, 7).padding(.vertical, 4).background(background, in: RoundedRectangle(cornerRadius: 4))
                 .position(x: hub.x + 32, y: hub.y + 29)
             ForEach(TransitLine.allCases) { line in

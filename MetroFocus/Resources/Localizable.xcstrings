@@ -633,7 +633,7 @@
         }
       }
     },
-    "ARRIVED" : {
+    "journey.arrivedLabel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1381,7 +1381,7 @@
         }
       }
     },
-    "HERE & NOW" : {
+    "atlas.hereNowLabel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {

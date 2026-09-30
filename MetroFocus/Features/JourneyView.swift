@@ -95,7 +95,7 @@ struct JourneyView: View {
                                     HStack {
                                         Spacer()
                                         VStack(alignment: .trailing, spacing: 5) {
-                                            Text(resting ? L("已到站", "ARRIVED") : L("下一站", "NEXT STOP")).font(.system(.caption2, design: .monospaced)).foregroundStyle(tint)
+                                            Text(resting ? String(localized: "journey.arrivedLabel", defaultValue: "ARRIVED") : L("下一站", "NEXT STOP")).font(.system(.caption2, design: .monospaced)).foregroundStyle(tint)
                                             Text(app.stationName).font(.headline).lineLimit(2).frame(maxWidth: 155, alignment: .trailing)
                                         }
                                     }
